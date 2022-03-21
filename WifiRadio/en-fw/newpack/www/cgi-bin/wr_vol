@@ -1,0 +1,10 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+IFS="&"
+set -- $QUERY_STRING
+nm=$1
+name=${nm//flevel=/}
+n=$(echo -e `echo $name | sed 's/+/ /g;s/%/\\\\x/g;'`)
+sound=$(uci get wifiradio.@setting[0].sound)
+echo $sound
+amixer -c 0 -- sset $sound Playback Volume $n%

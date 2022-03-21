@@ -1,0 +1,20 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+FILE=`cat`
+echo "$FILE" > /etc/wifiradio/tmp1
+tail -n +5 /etc/wifiradio/tmp1 > /etc/wifiradio/tmp2
+head -n -6 /etc/wifiradio/tmp2 >  /etc/wifiradio/user.m3u
+rm -r -f "/etc/wifiradio/tmp1"
+rm -r -f "/etc/wifiradio/tmp2"
+
+/www/cgi-bin/wr_split
+
+echo "<script>
+window.location.replace('wr_liststation');
+</script>
+<body>"

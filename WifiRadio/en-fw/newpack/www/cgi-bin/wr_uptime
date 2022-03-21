@@ -1,0 +1,16 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<body text='#000000' bgcolor='#FFFFFF' style='font-family: Tahoma; font-size: 10pt'>" 
+uptime | awk -F ' up | load average:' '{sub(/,.*$/, "", $2); 
+             printf "Uptime: %s\n", $2, $NF}'
+			 
+traf=$(cat "/proc/net/dev" | grep 'wlan0')
+mb="${traf%%  *}"
+mbb=${mb// wlan0: /}
+mbbb=`echo $mbb | grep -o '^[^= ]*'`
+
+echo "<br>Traffic: "$(($mbbb/1024)) "KB / "$(($mbbb/1024/1024)) "MB" | sed ':a;s/\([^0-9.][0-9]\+\|^[0-9]\+\)\([0-9]\{3\}\)/\1\ \2/g;ta'

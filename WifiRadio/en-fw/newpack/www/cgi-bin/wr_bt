@@ -1,0 +1,65 @@
+#!/bin/sh
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>"
+echo "<form method='GET' action='../cgi-bin/wr_btsave' name='btsave' onsubmit='return submitbt()'>"
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt'>"
+
+echo	"<tr>"
+echo	"	<td>Bluetooth name:</td>"
+echo	"	<td><input class='input' type=text name='bt_name' size=15 value="
+cat /data/bt/mibt_config.json | jq -r '.device.bd_name'
+echo "></td>"
+echo	"</tr>"
+echo	"<tr>"
+
+echo "</table><br>"
+echo '<input class=button type=submit value=Save name=c1ommit>'
+
+echo "<hr color='#378D87' size='1'>"
+
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt' cellspacing='1'>"
+echo "<tr><td width='5%'>"
+enable=`cat /data/bt/mibt_config.json | jq -r '.device.enable'`
+if [ $enable -eq 1 ]
+then
+echo "<a href='../cgi-bin/wr_bt_e?0'><img border='0' src='img/on.png' title='Disable' alt='Disable'></a>"
+else
+echo "<a href='../cgi-bin/wr_bt_e?1'><img border='0' src='img/off.png' title='Enable' alt='Enable'></a>"
+fi
+
+echo "</td>"
+echo "<td width='95%'>Enabled</td>"
+echo "</tr></table>"
+
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt' cellspacing='1'>"
+echo "<tr><td width='5%'>"
+
+discoverable=`cat /data/bt/mibt_config.json | jq -r '.device.discoverable'`
+if [ $discoverable -eq 1 ]
+then
+echo "<a href='../cgi-bin/wr_bt_d?0'><img border='0' src='img/on.png' title='Disable' alt='Disable'></a>"
+else
+echo "<a href='../cgi-bin/wr_bt_d?1'><img border='0' src='img/off.png' title='Enable' alt='Enable'></a>"
+fi
+
+echo "</td>"
+echo "<td width='95%'>Discoverable</td>"
+echo "</tr></table>"
+
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt' cellspacing='1'>"
+echo "<tr><td width='5%'>"
+
+connectable=`cat /data/bt/mibt_config.json | jq -r '.device.connectable'`						
+if [ $connectable -eq 1 ]
+then
+echo "<a href='../cgi-bin/wr_bt_c?0'><img border='0' src='img/on.png' title='Disable' alt='Disable'></a>"
+else
+echo "<a href='../cgi-bin/wr_bt_c?1'><img border='0' src='img/off.png' title='Enable' alt='Enable'></a>"
+fi
+
+echo "</td>"
+echo "<td width='95%'>Connectable</td>"
+echo "</tr></table>"
+echo "</form>"

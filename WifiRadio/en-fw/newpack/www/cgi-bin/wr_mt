@@ -1,0 +1,14 @@
+#!/bin/sh  
+# ©2019 WifiRadio.su
+
+mute=$(uci get wifiradio.@setting[0].mute)
+
+if [ $mute -eq 0 ]
+then
+/etc/wifiradio/mute.sh
+fi
+
+if [ $mute -eq 1 ]
+then
+/etc/wifiradio/unmute.sh
+fi

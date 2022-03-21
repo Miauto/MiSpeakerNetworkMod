@@ -1,0 +1,12 @@
+#EXTINF:-1,Питер FM
+http://icecast-piterfm.cdnvideo.ru/piterfm
+#EXTINF:-1,Экспресс-Радио
+http://159.253.18.97:8000/128kbit.mp3
+#EXTINF:-1,Рекорд Рок
+http://air2.radiorecord.ru:805/rock_128
+#EXTINF:-1,Наше радио
+http://nashe.streamr.ru/nashe-128.mp3
+#EXTINF:-1,Радио ШОК
+http://spb.radioshock.ru/radioshock
+#EXTINF:-1,Зайцев FM Рок
+http://zaycevfm.cdnvideo.ru/ZaycevFM_rock_128.mp3

@@ -1,0 +1,91 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>"
+
+start_mode=$(uci get wifiradio.@setting[0].start_mode)
+startvol=$(uci get wifiradio.@setting[0].startvol)
+night_from=$(uci get wifiradio.@setting[0].night_from)
+night_to=$(uci get wifiradio.@setting[0].night_to)
+night_vol=$(uci get wifiradio.@setting[0].night_vol)
+start_delay=$(uci get wifiradio.@setting[0].start_delay)
+
+if [ -z $start_mode ]; then
+    uci set wifiradio.@setting[0].start_mode="radio"
+    start_mode="radio"
+fi
+
+if [ -z $night_from ]; then
+    uci set wifiradio.@setting[0].night_from="23"
+    night_from="23"
+fi
+
+if [ -z $night_to ]; then
+    uci set wifiradio.@setting[0].night_to="7"
+    night_to="7"
+fi
+
+if [ -z $night_vol ]; then
+    uci set wifiradio.@setting[0].night_vol="27"
+    night_vol="27"
+fi
+
+if [ -z $start_delay ]; then
+    uci set wifiradio.@setting[0].start_delay="0"
+    start_delay="0"
+fi
+uci commit wifiradio
+
+echo "<form method='GET' action='../cgi-bin/wr_runch'>"
+
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt'>"
+echo	"<tr>"
+echo	"	<td>Mode after start:</td>"
+echo	"	<td><select size='1' name='mode' class='input'>:"
+echo    "<option value='radio' "
+if [ "$start_mode" = "radio" ]
+then
+echo "selected"
+fi
+echo ">Radio</option>"
+echo    "<option value='speaker' "
+if [ "$start_mode" = "speaker" ]
+then
+echo "selected"
+fi
+echo ">Speaker</option>"
+echo    "<option value='player' "
+if [ "$start_mode" = "player" ]
+then
+echo "selected"
+fi
+echo ">Player</option>"
+echo "</select></td>"
+echo "</tr>"
+
+echo "<tr>"
+echo "	<td>Volume after start (1-100):</td>"
+echo "	<td><input type='text' name='vol' size='15'  class='input' value='$startvol'></td>"
+echo "</tr>"
+
+echo "<tr>"
+echo "	<td>Delay after start (sec):</td>"
+echo "	<td><input type='text' name='start_delay' size='15'  class='input' value='$start_delay'></td>"
+echo "</tr>"
+
+echo "<tr>"
+echo "	<td>Night mode:</td>"
+echo "	<td>From <input type='text' name='from' size='2'  class='input' value='$night_from'> to <input type='text' name='to' size='2'  class='input' value='$night_to'></td>"
+echo "</tr>"
+
+echo "<tr>"
+echo "	<td>Night mode volume (1-100):</td>"
+echo "	<td><input type='text' name='night_vol' size='15'  class='input' value='$night_vol'></td>"
+echo "</tr>"
+
+echo "</table>"
+
+echo "<p><input class='button' type='submit' value='Save' name='send'></p>"
+echo "</form>"

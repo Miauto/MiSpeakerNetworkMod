@@ -1,0 +1,12 @@
+#EXTINF:-1,Радио Искатель
+http://iskatel.hostingradio.ru:8015/iskatel-128.mp3
+#EXTINF:-1,Маяк
+http://icecast.vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps
+#EXTINF:-1,Аншлаг FM
+http://air.radiorecord.ru:805/ansh_128
+#EXTINF:-1,Радио Книга
+http://bookradio.hostingradio.ru:8069/fm
+#EXTINF:-1,Поэзия
+http://jfm1.hostingradio.ru:14536/pcstream.mp3
+#EXTINF:-1,Театр онлайн
+http://195.91.237.50:8000/ices128

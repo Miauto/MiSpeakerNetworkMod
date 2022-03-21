@@ -1,0 +1,20 @@
+#!/bin/sh
+if [ "$QUERY_STRING" == "1" ]; then
+	jq '.device.enable="1"' /data/bt/mibt_config.json > /data/bt/mibt_config_tmp.json
+else
+	jq '.device.enable="0"' /data/bt/mibt_config.json > /data/bt/mibt_config_tmp.json
+fi
+uci set wifiradio.@setting[0].bt_enable=$QUERY_STRING
+uci commit wifiradio
+
+cp /data/bt/mibt_config_tmp.json /data/bt/mibt_config.json
+rm /data/bt/mibt_config_tmp.json
+/etc/init.d/bluetooth restart
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<script>
+window.location.replace('../play/settings.htm');
+</script>
+<body>"

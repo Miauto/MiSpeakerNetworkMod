@@ -1,0 +1,17 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>"
+
+loca=$(uci get wifiradio.@setting[0].version_loc)
+ser=$(uci get wifiradio.@setting[0].version_ser)
+sound=$(uci get wifiradio.@setting[0].sound)
+
+vol=`amixer get mysoftvol | grep 'Front Left:' |  awk '{ print $4 }' | grep -Eo '[0-9]+'`
+
+echo "<ser>$ser</ser>"
+echo "<loc>$loca</loc>"
+echo "<mpd>. Xiaomi Eng</mpd>"
+echo "<vol>$vol</vol>"

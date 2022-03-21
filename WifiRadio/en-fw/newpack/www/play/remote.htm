@@ -1,0 +1,89 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Wifi Radio - remote control</title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<link rel="stylesheet" type="text/css" href="style_remote.css">
+<meta name="theme-color" content="#46a28d">
+<script src="includeHTML.js"></script>
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+function mode() {
+    $.ajax({
+        url: '../cgi-bin/wr_name',
+        success: function(data) {
+            $('#played').html(data);
+        }
+    });
+};
+
+setInterval(mode, 5000);
+
+jQuery(function($) {
+     $('iframe').load(function(){$(this).height($(this).contents().find('html').height());});
+});
+
+</script>  
+<script type="text/javascript">
+function playAudio(){
+var myAudio = new Audio;
+myAudio.src = "click.mp3";
+myAudio.play();
+}
+</script>    
+</head>
+
+<body link="#000000" vlink="#333333" alink="#028473">
+
+<div align="center">
+	<table border="0" width="500" height="100">
+		<tr>
+			<td align="center" style="font-family: Tahoma; font-size: 12pt; color: #378D87; font-weight: bold" height="25">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center">
+			<div class="area"><div id="played"><include src="../cgi-bin/wr_name"></include></div></div></td>
+		</tr>
+		<tr>
+			<td align="center" height="5">
+			&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center">
+			<map name="FPMap0">
+			<area target="op" coords="247, 118, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_mode">
+			<area target="op" coords="353, 212, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_next">
+			<area target="op" coords="247, 213, 41" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_prev">
+			<area target="op" coords="144, 403, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?00">
+			<area target="op" coords="144, 497, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?01">
+			<area target="op" coords="250, 498, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?02">
+			<area target="op" coords="354, 497, 41" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?03">
+			<area target="op" coords="145, 592, 41" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?04">
+			<area target="op" coords="250, 592, 41" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?05">
+			<area target="op" coords="354, 591, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?06">
+			<area target="op" coords="145, 686, 41" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?07">
+			<area target="op" coords="250, 687, 40" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?08">
+			<area target="op" coords="355, 686, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_fav_play?09">
+			<area target="op" coords="248, 307, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_voldown">
+			<area target="op" coords="353, 307, 41" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_volup">
+			<area coords="143, 119, 42" shape="circle" href="../cgi-bin/wr_reboot" onclick='return confirm("Reboot device?")'>
+			<area target="op" coords="352, 117, 42" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_mt" >
+			<area target="op" coords="144, 215, 41" shape="circle" onclick="playAudio();" href="../cgi-bin/wr_playpause">
+			</map>
+			<img border="0" src="img/remote.jpg" usemap="#FPMap0"></td>
+		</tr>
+		<tr>
+			<td align="center">
+			<iframe name="op" hidden width="24" height="16"></iframe></td>
+		</tr>
+		<tr>
+			<td align="center">
+			<a href="index.htm" class="button">Go to normal mode</a></td>
+		</tr>
+	</table>
+</div>
+
+</body>
+</html>

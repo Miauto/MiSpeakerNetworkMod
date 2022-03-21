@@ -1,0 +1,14 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+uci set wifiradio.@subscribe[0].dance=$QUERY_STRING
+uci commit wifiradio
+/www/cgi-bin/wr_split
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<script>
+window.location.replace('../play/');
+</script>
+<body>"

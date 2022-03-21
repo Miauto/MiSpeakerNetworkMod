@@ -1,0 +1,13 @@
+#!/bin/sh
+
+uci set wifiradio.@player[0].startlast=$QUERY_STRING
+uci commit wifiradio
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<script>
+window.location.replace('../play/settings.htm');
+</script>
+<body>"

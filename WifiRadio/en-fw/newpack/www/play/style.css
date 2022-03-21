@@ -1,0 +1,112 @@
+form     {
+padding:0px; margin:0px;}
+
+input[type=range]
+{
+-webkit-appearance: none
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+border-radius: 5px;
+height: 5px;
+border: 1px solid #000;
+background-color: #ccc;
+}
+
+input[type=range]::-webkit-slider-thumb {
+-webkit-appearance: none;
+background-color: #378d87;
+border: 2px solid #378d87;
+width: 15px;
+height: 15px;
+border-radius: 10px;
+cursor: pointer;
+margin-top: -5px;
+}
+
+.bordered {
+    border: solid #ccc 1px;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc; 
+	font-family: Tahoma;
+	font-size: 10pt;	
+}
+
+.volume {
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	font-family: Tahoma;
+	font-size: 8pt;	
+}
+
+a {
+
+text-decoration:none
+
+}
+
+.button {
+    background-color: #26ba9a;
+    border: none;
+	border-radius: 3px;
+    color: white;
+    padding: 5px 9px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+	cursor: pointer;
+} 
+
+.list {
+    background-color: #26ba9a;
+    border: none;
+	border-radius: 3px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 8px;
+	font-family: tahoma;
+} 
+
+.input {
+    background-color: #ffffff;
+    border: 1px solid #26BA9A;
+	border-radius: 3px;
+    color: #000000;
+    text-align: left;
+    font-size: 9pt;
+	font-family: tahoma;
+	padding: 3px;
+}
+
+.subs {
+    background-color: #F9FAFB;
+    border: 0px solid #F9FAFB;
+	border-radius: 3px;
+    color: #000000;
+    text-align: left;
+    font-size: 8pt;
+	font-family: tahoma;
+	padding: 0px;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0px solid #f7f7f7;
+  background-color: #f7f7f7;
+  cursor: pointer;
+    font-size: 11px;
+	font-family: tahoma;
+}
+select::-ms-expand {  /* для IE */ 
+    display: none;
+}

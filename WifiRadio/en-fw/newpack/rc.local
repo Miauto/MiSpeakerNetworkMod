@@ -1,0 +1,12 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+# Check if mounted RO
+if [ "$(/bin/mount | grep 'ro,noatime,errors=remount-ro' | wc -l)" = "1" ]; then
+    /sbin/reboot
+fi
+chmod -R 755 /www/cgi-bin/
+chmod -R 755 /etc/wifiradio/
+/etc/init.d/dlnainit disable
+/etc/init.d/dlnainit stop
+/etc/wifiradio/load.sh &
+exit 0

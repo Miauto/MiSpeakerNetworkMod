@@ -1,0 +1,45 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+wfr=$((0))
+while read line
+do
+wfr=$(($wfr + 1))
+done < /etc/wifiradio/wifiradio.su.m3u
+
+log=$((1))
+cur=$(uci get wifiradio.@setting[0].current)
+
+while read STATION
+
+do
+
+if [ $log -eq 3 ]
+then
+log=$((1))
+fi
+
+if [ $log -eq 2 ]
+then
+log=$(($log+1))
+fi
+
+num=$(($num + 1))
+if [ $log -eq 1 ]
+then
+st=$(($num+1))
+nn=$(($st/2))
+
+echo "<list>$nn. ${STATION//#EXTINF:-1,/}</list>"
+echo "<code>$st</code>"
+
+log=$(($log+1))
+
+
+fi
+
+done < /etc/wifiradio/playlist.m3u

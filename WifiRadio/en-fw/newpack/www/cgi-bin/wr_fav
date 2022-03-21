@@ -1,0 +1,25 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+IFS="&"
+set -- $QUERY_STRING
+
+fv=$1
+st=$2
+
+fav=${fv//fav=/}
+stat=${st//station=/}
+
+
+uci set wifiradio.@fav[0].$fav=$stat
+uci commit wifiradio
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+echo "<script>
+window.location.replace('wr_liststation');
+</script>
+<body>"
+ 

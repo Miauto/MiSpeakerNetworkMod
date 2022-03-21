@@ -1,0 +1,27 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+nm=$(($QUERY_STRING - 1))
+
+sed -i ${nm}d /etc/wifiradio/user.m3u
+sed -i ${nm}d /etc/wifiradio/user.m3u
+
+sleep 1
+
+cat "/etc/wifiradio/user.m3u" "/etc/wifiradio/wifiradio.su.m3u" > "/etc/wifiradio/playlist.m3u"
+
+sleep 1
+
+mpc clear
+mpc load playlist.m3u
+mpc play
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<script>
+window.location.replace('wr_liststation');
+</script>
+<body>"
+
+

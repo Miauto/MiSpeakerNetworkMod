@@ -1,0 +1,111 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+cp /dev/null /etc/wifiradio/wifiradio.su.m3u
+sleep 1
+
+country=`curl http://ifconfig.co/country | cat`
+
+pop=$(uci get wifiradio.@subscribe[0].pop)
+if [ $pop -eq 1 ]
+then
+pop="/etc/wifiradio/playlists/pop.m3u"
+else
+pop="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+retro=$(uci get wifiradio.@subscribe[0].retro)
+if [ $retro -eq 1 ]
+then
+retro="/etc/wifiradio/playlists/retro.m3u"
+else
+retro="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+shanson=$(uci get wifiradio.@subscribe[0].shanson)
+if [ $shanson -eq 1 ]
+then
+shanson="/etc/wifiradio/playlists/shanson.m3u"
+else
+shanson="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+rock=$(uci get wifiradio.@subscribe[0].rock)
+if [ $rock -eq 1 ]
+then
+rock="/etc/wifiradio/playlists/rock.m3u"
+else
+rock="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+rap=$(uci get wifiradio.@subscribe[0].rap)
+if [ $rap -eq 1 ]
+then
+rap="/etc/wifiradio/playlists/rap.m3u"
+else
+rap="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+group=$(uci get wifiradio.@subscribe[0].group)
+if [ $group -eq 1 ]
+then
+group="/etc/wifiradio/playlists/group.m3u"
+else
+group="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+dance=$(uci get wifiradio.@subscribe[0].dance)
+if [ $dance -eq 1 ]
+then
+dance="/etc/wifiradio/playlists/dance.m3u"
+else
+dance="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+kids=$(uci get wifiradio.@subscribe[0].kids)
+if [ $kids -eq 1 ]
+then
+kids="/etc/wifiradio/playlists/kids.m3u"
+else
+kids="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+relax=$(uci get wifiradio.@subscribe[0].relax)
+if [ $relax -eq 1 ]
+then
+relax="/etc/wifiradio/playlists/relax.m3u"
+else
+relax="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+vostok=$(uci get wifiradio.@subscribe[0].vostok)
+if [ $vostok -eq 1 ]
+then
+vostok="/etc/wifiradio/playlists/vostok.m3u"
+else
+vostok="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+other=$(uci get wifiradio.@subscribe[0].other)
+if [ $other -eq 1 ]
+then
+other="/etc/wifiradio/playlists/other.m3u"
+if [ $country = "Kazakhstan" ]
+then
+other="$other /etc/wifiradio/playlists/kz.m3u"
+fi
+else
+other="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+aac=$(uci get wifiradio.@subscribe[0].aac)
+if [ $aac -eq 1 ]
+then
+aac="/etc/wifiradio/playlists/aac.m3u"
+else
+aac="/etc/wifiradio/playlists/blank.m3u"
+fi
+
+sleep 1
+
+cat $pop $retro $shanson $rock $rap $group $dance $kids $relax $vostok $other $aac> "/etc/wifiradio/wifiradio.su.m3u"
+cat "/etc/wifiradio/user.m3u" "/etc/wifiradio/wifiradio.su.m3u" > "/etc/wifiradio/playlist.m3u"

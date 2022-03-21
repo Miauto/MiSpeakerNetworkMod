@@ -1,0 +1,14 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+uci set wifiradio.@setting[0].current=$QUERY_STRING
+uci commit wifiradio
+/etc/wifiradio/play.sh
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<script>
+window.location.replace('wr_liststation');
+</script>
+<body>"

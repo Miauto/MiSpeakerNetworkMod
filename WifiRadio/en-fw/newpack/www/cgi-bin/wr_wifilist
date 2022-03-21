@@ -1,0 +1,8 @@
+/^[[:space:]]*signal:/ {
+    signal = gensub ( /^[[:space:]]*signal:[[:space:]]*(\-?[0-9.]+).*?$/, "\\1", "g", $0 );
+}
+/^[[:space:]]*SSID:/ {
+    ssid = gensub ( /^[[:space:]]*SSID:[[:space:]]*([^\n]*).*?$/, "\\1", "g", $0 );
+    printf ( "%s %s %s\n", "<option value="ssid">"ssid " [" 115-(signal*-1)"%]</option>");
+	
+}

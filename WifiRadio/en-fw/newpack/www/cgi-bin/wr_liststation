@@ -1,0 +1,212 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<link rel='stylesheet' type='text/css' href='../play/style.css'>
+<body topmargin='0' link='#000000' vlink='#333333' alink='#028473'>"
+
+fav00=$(uci get wifiradio.@fav[0].00)
+fav01=$(uci get wifiradio.@fav[0].01)
+fav02=$(uci get wifiradio.@fav[0].02)
+fav03=$(uci get wifiradio.@fav[0].03)
+fav04=$(uci get wifiradio.@fav[0].04)
+fav05=$(uci get wifiradio.@fav[0].05)
+fav06=$(uci get wifiradio.@fav[0].06)
+fav07=$(uci get wifiradio.@fav[0].07)
+fav08=$(uci get wifiradio.@fav[0].08)
+fav09=$(uci get wifiradio.@fav[0].09)
+fav10=$(uci get wifiradio.@fav[0].10)
+
+wfr=$((0))
+while read line
+do
+wfr=$(($wfr + 1))
+done < /etc/wifiradio/wifiradio.su.m3u
+
+usr=$((0))
+while read line
+do
+usr=$(($usr + 1))
+done < /etc/wifiradio/user.m3u
+
+log=$((1))
+cur=$(uci get wifiradio.@setting[0].current)
+
+echo "<table class='bordered' border='0' align='center' width='96%' cellspacing='3' cellpadding='3'>
+			<tr>
+				<td colspan='4' bgcolor='#378D87' style='padding: 5px'><font color='#FFFFFF'>Radios list</font></td>
+			</tr>"
+while read STATION
+
+do
+
+if [ $log -eq 3 ]
+then
+log=$((1))
+fi
+
+if [ $log -eq 2 ]
+then
+log=$(($log+1))
+fi
+
+num=$(($num + 1))
+if [ $log -eq 1 ]
+then
+st=$(($num+1))
+nn=$(($st/2))
+echo "<tr>"
+
+echo "<td  align='center'  style='color: #999999' bgcolor='#f7f7f7' width='5%'>
+<form method='GET' action='/cgi-bin/wr_fav'>
+<select title='Add to favorites' class='.list' name='fav' size='1' onchange='submit();'>
+<option selected value='no'>☆</option>
+<option value='00'>00</option>
+<option value='01'>01</option>
+<option value='02'>02</option>
+<option value='03'>03</option>
+<option value='04'>04</option>
+<option value='05'>05</option>
+<option value='06'>06</option>
+<option value='07'>07</option>
+<option value='08'>08</option>
+<option value='09'>09</option>
+<option value='10'>10</option>
+</select>
+<input hidden name='station' value='$st'>
+</form>
+</td>"
+
+echo "<td align='center' style='color: #999999' bgcolor='#f7f7f7' width='5%'>"
+if [ $st -le $usr ]
+then
+echo "<a href="../cgi-bin/wr_delstation?$st" title='Delete'><font color="#CC0000">✖</font></a>"
+else 
+echo "∞"
+fi
+echo "</td>"
+
+if [ $cur -eq $st ]
+then
+
+echo "<td bgcolor='#f7f7f7' width='80%'><b><a href="../cgi-bin/wr_playfromlist?$st">$nn. ${STATION//#EXTINF:-1,/}</a></b>"
+if [ $fav00 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [00]</font>"
+fi
+if [ $fav01 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [01]</font>"
+fi
+if [ $fav02 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [02]</font>"
+fi
+if [ $fav03 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [03]</font>"
+fi
+if [ $fav04 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [04]</font>"
+fi
+if [ $fav05 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [05]</font>"
+fi
+if [ $fav06 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [06]</font>"
+fi
+if [ $fav07 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [07]</font>"
+fi
+if [ $fav08 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [08]</font>"
+fi
+if [ $fav09 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [09]</font>"
+fi
+if [ $fav10 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [10]</font>"
+fi
+echo "</td>"
+
+else
+
+echo "<td bgcolor='#f7f7f7' width='80%'><a href="../cgi-bin/wr_playfromlist?$st">$nn. ${STATION//#EXTINF:-1,/}</a>"
+if [ $fav00 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [00]</font>"
+fi
+if [ $fav01 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [01]</font>"
+fi
+if [ $fav02 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [02]</font>"
+fi
+if [ $fav03 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [03]</font>"
+fi
+if [ $fav04 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [04]</font>"
+fi
+if [ $fav05 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [05]</font>"
+fi
+if [ $fav06 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [06]</font>"
+fi
+if [ $fav07 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [07]</font>"
+fi
+if [ $fav08 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [08]</font>"
+fi
+if [ $fav09 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [09]</font>"
+fi
+if [ $fav10 -eq $st ]
+then
+echo " <font size='1' color='#f7c800'>★ [10]</font>"
+fi
+echo "</td>"
+
+fi
+
+if [ $cur -eq $st ]
+then
+echo "<td align='center' bgcolor='#f7f7f7' width='5%'><a href="../cgi-bin/wr_playfromlist?$st"><img src=../play/img/played.png></a></td>"
+else
+echo "<td align='center' bgcolor='#f7f7f7' width='5%'><a href="../cgi-bin/wr_playfromlist?$st"><img src=../play/img/play_l.png></a></td>"
+fi
+
+echo "</tr>"
+
+log=$(($log+1))
+
+else
+echo "<tr>"
+echo "<td colspan="4" height='5' style='font-family: Tahoma; font-size: 7pt;'>"
+echo " <a href="$STATION" target=blank><font color='#C0C0C0'>Stream URL:" $STATION"</font></a>"
+echo "</td>"
+echo "</tr>"
+fi
+
+done < /etc/wifiradio/playlist.m3u
+echo "</table>"

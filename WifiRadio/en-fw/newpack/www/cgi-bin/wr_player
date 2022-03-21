@@ -1,0 +1,48 @@
+#!/bin/sh
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>"
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt' cellspacing='1'>"
+echo "<tr><td width='5%'>"
+repeat=$(uci get wifiradio.@player[0].repeat)
+if [ $repeat -eq 1 ]
+then
+    echo "<a href='../cgi-bin/wr_player_repeat?0'><img border='0' src='img/on.png' title='Disable' alt='Disable'></a>"
+else
+    echo "<a href='../cgi-bin/wr_player_repeat?1'><img border='0' src='img/off.png' title='Enable' alt='Enable'></a>"
+fi
+
+echo "</td>"
+echo "<td width='95%'>Repeat</td>"
+echo "</tr></table>"
+
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt' cellspacing='1'>"
+echo "<tr><td width='5%'>"
+
+random=$(uci get wifiradio.@player[0].random)
+if [ $random -eq 1 ]
+then
+    echo "<a href='../cgi-bin/wr_player_random?0'><img border='0' src='img/on.png' title='Disable' alt='Disable'></a>"
+else
+    echo "<a href='../cgi-bin/wr_player_random?1'><img border='0' src='img/off.png' title='Enable' alt='Enable'></a>"
+fi
+
+echo "</td>"
+echo "<td width='95%'>Random</td>"
+echo "</tr></table>"
+
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt' cellspacing='1'>"
+echo "<tr><td width='5%'>"
+
+startlast=$(uci get wifiradio.@player[0].startlast)
+if [ $startlast -eq 1 ]
+then
+    echo "<a href='../cgi-bin/wr_player_sl?0'><img border='0' src='img/on.png' title='Disable' alt='Disable'></a>"
+else
+    echo "<a href='../cgi-bin/wr_player_sl?1'><img border='0' src='img/off.png' title='Enable' alt='Enable'></a>"
+fi
+
+echo "</td>"
+echo "<td width='95%'>Start from last song</td>"
+echo "</tr></table>"

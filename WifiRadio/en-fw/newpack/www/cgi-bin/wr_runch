@@ -1,0 +1,45 @@
+#!/bin/sh
+# ©2018 WifiRadio.su
+IFS="&"
+set -- $QUERY_STRING
+
+sm=$1
+ln=$2
+sd=$3
+nf=$4
+nt=$5
+nv=$6
+
+start_mode=${sm//mode=/}
+vol=${ln//vol=/}
+start_delay=${sd//start_delay=/}
+night_from=${nf//from=/}
+night_to=${nt//to=/}
+night_vol=${nv//night_vol=/}
+
+m=$(echo -e `echo $start_mode | sed 's/+/ /g;s/%/\\\\x/g;'`)
+v=$(echo -e `echo $vol | sed 's/+/ /g;s/%/\\\\x/g;'`)
+d=$(echo -e `echo $start_delay | sed 's/+/ /g;s/%/\\\\x/g;'`)
+f=$(echo -e `echo $night_from | sed 's/+/ /g;s/%/\\\\x/g;'`)
+t=$(echo -e `echo $night_to | sed 's/+/ /g;s/%/\\\\x/g;'`)
+n=$(echo -e `echo $night_vol | sed 's/+/ /g;s/%/\\\\x/g;'`)
+
+uci set wifiradio.@setting[0].start_mode=$m
+uci set wifiradio.@setting[0].startvol=$v
+uci set wifiradio.@setting[0].start_delay=$d
+uci set wifiradio.@setting[0].night_from=$f
+uci set wifiradio.@setting[0].night_to=$t
+uci set wifiradio.@setting[0].night_vol=$n
+uci commit wifiradio
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+echo "<script>
+window.location.replace('../play/settings.htm');
+</script>
+<body>"
+
+ 

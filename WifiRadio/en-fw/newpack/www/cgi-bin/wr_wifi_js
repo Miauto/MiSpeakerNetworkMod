@@ -1,0 +1,74 @@
+#!/bin/sh
+echo "
+
+function chProfile(prof){
+var wifiProfile = [];
+"
+num=$(cat /data/wifi/wpa_supplicant.conf | grep network= | wc -l)
+for i in $(seq 1 $num)
+do
+    echo "wifiProfile[$i] = {"
+    echo "    ssid: '$(cat /data/wifi/wpa_supplicant.conf  | grep ssid=\" | sed -e 's/.*"\(.*\)".*/\1/' | head -n$i | tail -n1)',"
+    echo "    enc: '$(cat /data/wifi/wpa_supplicant.conf  | grep key_mgmt | sed -n '/.*=/s///p' | head -n$i | tail -n1)',"
+    echo "    pass: '$(cat /data/wifi/wpa_supplicant.conf  | grep psk=\" | sed -e 's/.*"\(.*\)".*/\1/' | sed s/\\\\/\\\\\\\\/g | sed s/\'/\\\\x27/g  | head -n$i | tail -n1)'"
+    echo "}"
+done
+echo "
+    prof++
+    if ( prof >= wifiProfile.length ) {
+	document.wifisave.ssid.value=\"\";
+	document.wifisave.type.value=\"WPA-PSK\";
+	document.wifisave.pass.value=\"\";
+	document.wifisave.commit.value=\"Add\";
+	document.wifisave.del.checked=false;
+	document.wifisave.del.disabled=true;
+    } else {
+	document.wifisave.ssid.value=wifiProfile[prof].ssid;
+	document.wifisave.type.value=wifiProfile[prof].enc;
+	document.wifisave.pass.value=wifiProfile[prof].pass;
+	document.wifisave.commit.value=\"Change\";
+	document.wifisave.del.checked=false;
+	document.wifisave.del.disabled=false;
+    }
+}
+
+function submitit() {
+    var pass = document.wifisave.pass.value
+    var ssid = document.wifisave.ssid.value
+    
+    if (document.wifisave.ssid.value.length < 2) {
+	alert(\"Enter correct SSID!\")
+	document.wifisave.ssid.focus()
+	return false
+    }
+    if (ssid.indexOf('\"') !== -1){
+	alert(\"Symbol \\\" is denied!\")
+	document.wifisave.ssid.focus()
+	return false
+    }
+    if (pass.indexOf('\"') !== -1){
+	alert(\"Symbol \\\" is denied!\")
+	document.wifisave.pass.focus()
+	return false
+    }
+    if (document.wifisave.pass.value.length < 8 || document.wifisave.pass.value.length > 64 ){
+	alert(\"Password must be from 8..64 symbols\")
+	document.wifisave.pass.focus()
+	return false
+    }
+}
+
+function submitbt(){
+    var bt_name = document.btsave.bt_name.value
+    if (bt_name.indexOf('\"') !== -1){
+	alert(\"Symbol \\\" is denied!\")
+	document.btsave.bt_name.focus()
+	return false
+    }
+    if (bt_name==\"\"){
+        alert(\"Enter BT Name!\")
+        document.btsave.bt_name.focus()
+        return false
+    }
+}
+"

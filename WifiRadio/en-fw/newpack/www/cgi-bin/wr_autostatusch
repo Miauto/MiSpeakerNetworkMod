@@ -1,0 +1,13 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+uci set wifiradio.@setting[0].autoupdate=$QUERY_STRING
+uci commit wifiradio
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<script>
+window.location.replace('../play/');
+</script>
+<body>"

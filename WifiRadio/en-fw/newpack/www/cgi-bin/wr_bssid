@@ -1,0 +1,45 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<body text='#000000' bgcolor='#FFFFFF' style='font-family: Tahoma; font-size: 10pt'>" 
+
+ssid=`iw dev wlan0 link | grep 'SSID'| sed -e 's/SSID: //g' | sed -e 's/ dBm//g'`
+signal=`iw dev wlan0 link | grep 'signal' | sed -e 's/signal: //g' | sed -e 's/ dBm//g'`
+
+signal=$((115 - ($signal * -1)))
+
+if [ $signal -gt "100" ]
+then
+signal=100
+fi
+
+if [[ $signal -ge "0" && $signal -le "24" ]]
+then
+echo "<img src=../play/img/0.png>";
+fi
+
+if [[ $signal -ge "25" && $signal -le "49" ]]
+then
+echo "<img src=../play/img/25.png>";
+fi
+
+if [[ $signal -ge "50" && $signal -le "74" ]]
+then
+echo "<img src=../play/img/50.png>";
+fi
+
+if [[ $signal -ge "75" && $signal -le "89" ]]
+then
+echo "<img src=../play/img/75.png>";
+fi
+
+if [[ $signal -ge "90" && $signal -le "100" ]]
+then
+echo "<img src=../play/img/100.png>";
+fi
+
+echo "<br>";
+echo "<font size='1'>"$ssid"&nbsp;"$signal"%</font>";

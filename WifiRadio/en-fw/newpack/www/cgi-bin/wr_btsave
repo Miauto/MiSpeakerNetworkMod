@@ -1,0 +1,21 @@
+#!/bin/sh
+IFS="&"
+set -- $QUERY_STRING
+bt=$1
+bt_name=${bt//bt_name=/}
+b=$(echo -e `echo $bt_name | sed 's/+/ /g;s/%/\\\\x/g;'`)
+uci set wifiradio.@setting[0].bt_name=$b
+uci commit wifiradio
+jq .device.bd_name=\"$b\" /data/bt/mibt_config.json > /data/bt/mibt_config_tmp.json
+cp /data/bt/mibt_config_tmp.json /data/bt/mibt_config.json
+rm /data/bt/mibt_config_tmp.json
+/etc/init.d/bluetooth restart
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<script>
+window.location.replace('../play/settings.htm');
+</script>
+<body>"
+

@@ -1,0 +1,33 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+IFS="&"
+set -- $QUERY_STRING
+
+ts=$1
+nm=$2
+ct=$3
+
+tts=${ts//tts=/}
+name=${nm//name=/}
+city=${ct//city=/}
+
+t=$(echo -e `echo $tts | sed 's/+/ /g;s/%/\\\\x/g;'`)
+n=$(echo -e `echo $name | sed 's/+/ /g;s/%/\\\\x/g;'`)
+c=$(echo -e `echo $city | sed 's/+/ /g;s/%/\\\\x/g;'`)
+
+uci set wifiradio.@setting[0].tts=$t
+uci set wifiradio.@setting[0].hello=$n"-"
+uci set wifiradio.@setting[0].city=$c"-"
+uci commit wifiradio
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+echo "<script>
+window.location.replace('../play/settings.htm');
+</script>
+<body>"
+
+ 

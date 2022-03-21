@@ -1,0 +1,28 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+IFS="&"
+set -- $QUERY_STRING
+
+nm=$1
+ln=$2
+
+name=${nm//name=/}
+link=${ln//link=/}
+
+n=$(echo -e `echo $name | sed 's/+/ /g;s/%/\\\\x/g;'`)
+l=$(echo -e `echo $link | sed 's/+/ /g;s/%/\\\\x/g;'`)
+
+echo -e "#EXTINF:-1,"$n"\n"$l >> /etc/wifiradio/user.m3u
+
+/www/cgi-bin/wr_split
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+echo "<script>
+window.location.replace('../play/');
+</script>
+<body>"
+ 

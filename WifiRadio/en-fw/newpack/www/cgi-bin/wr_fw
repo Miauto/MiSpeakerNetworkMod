@@ -1,0 +1,77 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<meta http-equiv='refresh' content='75; url=../play/'>
+<body text='#cfcfcf' bgcolor='#FFFFFF'>" 
+echo "<br><center><img src='../play/img/logo.png'><br><br><font size='2' style='font-family: Tahoma' color='#378d87'>Firmware updating... Dont close page until updating finished!</font></center><br>"
+echo "<center><img src='../play/img/reboot.gif'></center><br><textarea rows='10' cols='45'>"
+
+server=$(uci get wifiradio.@setting[0].server)
+sserver=$(uci get wifiradio.@setting[0].sserver)
+sound=$(uci get wifiradio.@setting[0].sound)
+tts=$(uci get wifiradio.@setting[0].tts)
+
+mpc stop
+mpc clear
+mpc repeat off
+
+mpc add "$server/tts.work/$tts.update_start.mp3"
+
+mpc play
+
+rm -r -f "/etc/backup/"
+rm -r -f "/etc/wifiradio/config/"
+rm -r -f "/etc/wifiradio/fav/"
+
+rm -r -f "/www/play/"
+
+mkdir -p "/etc/backup/"
+
+# Set last ver
+version_ser=`curl $sserver/download/ver.php | cat`
+sleep 1
+uci set wifiradio.@setting[0].version_loc=$version_ser
+uci commit
+
+sleep 1
+
+cp "/etc/config/system" "/etc/backup/system"
+cp "/etc/config/wifiradio" "/etc/backup/wifiradio"
+cp "/etc/wifiradio/user.m3u" "/etc/backup/user.m3u"
+cp "/etc/wifiradio/player.m3u" "/etc/backup/player.m3u"
+
+mkdir /media/public/fw
+cd /media/public/fw
+wget $sserver/download/wifispeaker_last.tar.gz
+tar -xzf "/media/public/fw/wifispeaker_last.tar.gz" -C "/media/public"
+sleep 3
+cd /media/public/fw
+./inst.sh
+rm -fr "/media/public/fw/"
+
+sleep 1
+
+cp "/etc/backup/system" "/etc/config/system"
+cp "/etc/backup/wifiradio" "/etc/config/wifiradio"
+cp "/etc/backup/user.m3u" "/etc/wifiradio/user.m3u"
+cp "/etc/backup/player.m3u" "/etc/wifiradio/player.m3u"
+
+
+/www/cgi-bin/wr_split
+sleep 1
+
+mpc stop
+mpc clear
+mpc repeat off
+
+mpc add "$server/tts.work/$tts.update_end.mp3"
+
+mpc play
+
+sleep 5
+
+echo "</textarea>"
+reboot

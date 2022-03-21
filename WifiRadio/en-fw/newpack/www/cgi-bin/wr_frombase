@@ -1,0 +1,12 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<body text='#000000' bgcolor='#FFFFFF' style='font-family: Tahoma; font-size: 10pt'>" 
+
+server=$(uci get wifiradio.@setting[0].server)
+echo "<a class='button' href='https://fw.wifiradio.su/station.php?ip="
+/sbin/ifconfig wlan0 | grep 'inet addr' | cut -d: -f2 | awk '{print $1}'
+echo "'>Add from database</a>"

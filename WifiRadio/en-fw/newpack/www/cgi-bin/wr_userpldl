@@ -1,0 +1,13 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+cp /etc/wifiradio/user.m3u /www/play/user.m3u
+sleep 1
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<meta http-equiv='refresh' content='0; url=../play/user.m3u'>
+<body text='#cfcfcf' bgcolor='#FFFFFF'>" 
+
+
+

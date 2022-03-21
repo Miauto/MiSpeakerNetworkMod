@@ -1,0 +1,240 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Wifi Radio - control panel</title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta name="theme-color" content="#46a28d">
+<script src="includeHTML.js"></script>
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+function mode() {
+    $.ajax({
+        url: '../cgi-bin/wr_uptime',
+        success: function(data) {
+            $('#upt').html(data);
+        }
+    });
+    $.ajax({
+        url: '../cgi-bin/wr_name',
+        success: function(data) {
+            $('#played').html(data);
+        }
+    });
+    $.ajax({
+        url: '../cgi-bin/wr_img',
+        success: function(data) {
+            $('#img').html(data);
+        }
+    });
+    $.ajax({
+        url: '../cgi-bin/wr_vlm',
+        success: function(data) {
+            $('#volume').html(data);
+        }
+    });
+    $.ajax({
+        url: '../cgi-bin/wr_bssid',
+        success: function(data) {
+            $('#wifi').html(data);
+        }
+    });
+};
+
+setInterval(mode, 15000);
+
+jQuery(function($) {
+     $('iframe').load(function(){$(this).height($(this).contents().find('html').height());});
+});
+
+</script>     
+</head>
+
+<body link="#000000" vlink="#333333" alink="#028473" background="../play/img/background-stripes.png">
+
+<div align="center">
+	<table class="bordered" border="0" width="930" style="font-family: Tahoma; font-size: 10pt" cellspacing="4" cellpadding="2" bgcolor="#FFFFFF">
+		<tr>
+			<td colspan="4" align="center" bgcolor="#378D87">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" width="45%">
+			<img border="0" src="../play/img/logo.png" width="391" height="63"></td>
+			<td align="center" width="10%"><a href="remote.htm">
+			<img border="0" src="img/remoteico.png" width="50" height="50"></a>
+			</td>
+			<td align="center" width="35%">
+			<table class="volume" border="0" width="90%" cellpadding="2">
+				<tr>
+						
+					<td align="center" width="55" bgcolor="#F7F7F7">
+
+					<a href="../cgi-bin/wr_playpause" target="op"><img border="0" src="img/playpause.png"></a>
+					</td>
+					
+				<td align="center" bgcolor="#F7F7F7">
+
+<div id="volume"><include src="../cgi-bin/wr_vlm"><center><img src='../play/img/reboot.gif'></center></include></div>
+
+				</td>					
+					
+<td bgcolor="#F7F7F7" width="55" align="center" style="padding: 3px">
+<div id="wifi"><include src="../cgi-bin/wr_bssid"><center><img src='../play/img/reboot.gif'></center></include></div>
+</td>
+				</tr>
+			</table>
+			</td>
+
+			<td align="center" width="10%">
+			<a href="../cgi-bin/wr_reboot" onclick='return confirm("Reboot?")'><img src="img/reboot.png" title="Reboot"></a><iframe name="op" hidden width="24" height="16"></iframe></td>
+		</tr>
+		<tr>
+			<td bgcolor="#378D87" align="center" width="100%" style="color: #FFFFFF" height="20" colspan="4">
+
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="4" align="left" style="padding: 5px">
+<table border="0" width="100%">
+	<tr>
+	
+		<td align="center" valign="top" width="50%">
+		<iframe src="../cgi-bin/wr_liststation" width="430" height="1600" marginwidth="1" marginheight="1" name="playlist" border="0" frameborder="0" scrolling="no" align="middle"></iframe></td>
+		
+		<td align="center" valign="top" width="50%">
+	<table class="bordered" border="0" width="90%" cellspacing="4" cellpadding="4">
+			<tr>
+				<td bgcolor="#378D87" style="padding: 5px" align="center">
+				<font color="#FFFFFF">Now playing:</font></td>
+			</tr>
+			<tr>
+				<td style="padding: 5px" align="center">
+<div id="img"><include src="../cgi-bin/wr_img"><center><img src='../play/img/reboot.gif'></center></include></div>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 5px; color:#FFFFFF" align="center" bgcolor="#378D87" height="25">
+	 <div id="played"><include src="../cgi-bin/wr_name"></include></div></td>
+			</tr>
+			</table>
+<br>
+<table class="bordered" border="0" width="90%" cellspacing="4" cellpadding="4">
+			<tr>
+				<td bgcolor="#378D87" style="padding: 5px">
+				<font color="#FFFFFF">Subscribe to playlist</font></td>
+			</tr>
+			<tr>
+				<td bgcolor="#E5E9EC" style="padding: 5px">
+<div>
+    <include src="../cgi-bin/wr_subscribe"><center><img src='../play/img/reboot.gif'></center></include>
+</div>
+	
+				</td>
+			</tr>
+			</table>
+			<br>
+		<table class="bordered" border="0" width="90%" cellspacing="4" cellpadding="4">
+			<tr>
+				<td bgcolor="#378D87" style="padding: 5px">
+				<font color="#FFFFFF">Add radio</font></td>
+			</tr>
+			<tr>
+				<td bgcolor="#E5E9EC" style="padding: 5px">
+				<form method="GET" action="../cgi-bin/wr_addstation" target="playlist">						
+<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt'>
+	<tr>
+		<td>Radio name:</td>
+		<td><input type="text" name="name" size="30" class="input"></td>
+	</tr>
+	<tr>
+		<td>Stream URL:</td>
+		<td><input type="text" name="link" size="30" class="input"> </td>
+	</tr>
+</table>
+<br>							
+<table border="0" width="100%" cellpadding="2">
+	<tr>
+		<td width="10%"><input class="button" type="submit" value="Add" name="send"></td>
+		<td>
+<div>
+    <include src="../cgi-bin/wr_frombase"></include>
+</div>
+		</td>
+	</tr>
+</table>
+				</form>
+				</td>
+			</tr>
+			</table>
+						<br>
+			<table class="bordered" border="0" width="90%" cellspacing="4" cellpadding="4">
+			<tr>
+				<td bgcolor="#378D87" style="padding: 5px">
+				<font color="#FFFFFF">Load and save playlist</font>
+				</td>
+			</tr>
+			<tr>
+				<td bgcolor="#E5E9EC" style="padding: 5px">
+				<form method="POST" enctype="multipart/form-data" action="../cgi-bin/wr_upload" target="playlist">
+					<p>
+					<input type="file" name="list" size="20" class="input"></p>
+<table border="0" width="100%" cellpadding="2">
+	<tr>
+		<td width="10%"><input class="button" type="submit" value="Load playlist" name="send"></td>
+		<td><a class='button' href="../cgi-bin/wr_userpldl" target="op">Save playlist</a></td>
+	</tr>
+</table>
+				</form>
+				</td>
+			</tr>
+			</table>
+			<br>
+
+<table class="bordered" border="0" width="90%" cellspacing="4" cellpadding="4">
+			<tr>
+				<td bgcolor="#378D87" style="padding: 5px">
+				<font color="#FFFFFF">System info</font></td>
+			</tr>
+			<tr>
+				<td bgcolor="#E5E9EC" style="padding: 5px">
+	<div id="upt"><center><img src='../play/img/reboot.gif'></center></div>
+				</td>
+			</tr>
+			</table>
+			<br>
+<table class="bordered" border="0" width="90%" cellspacing="4" cellpadding="4">
+			<tr>
+				<td bgcolor="#378D87" style="padding: 5px">
+				<font color="#FFFFFF">Remote control for Android</font></td>
+			</tr>
+			<tr>
+				<td bgcolor="#E5E9EC" style="padding: 5px" align="center">
+	<a target="_blank" href="https://play.google.com/store/apps/details?id=com.appybuilder.dementiymm.WifiradioSU_Remote">
+	<img border="0" src="img/qr-code.png" width="158" height="158"></a><p>
+	<a target="_blank" href="https://play.google.com/store/apps/details?id=com.appybuilder.dementiymm.WifiradioSU_Remote">
+	<img border="0" src="img/google-tab.png" width="158" height="50"></a>
+				</td>
+			</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>				
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="4" align="center"><hr color="#378D87" size="1"></td>
+		</tr>
+		<tr>
+			<td colspan="4" align="center" height="35">
+			<b><a target="_blank" href="https://wifiradio.su/">
+			<font color="#378D87">© WifiRadio.SU, 2020</font></a></b></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

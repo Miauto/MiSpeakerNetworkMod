@@ -1,0 +1,168 @@
+#EXTINF:-1,Байкер FM
+http://stream3.radiostyle.ru:8001/biker-fm
+#EXTINF:-1,101.Ru - Beachclub
+http://newairhost.com:8046/stream/;stream/1
+#EXTINF:-1,Витамин FM 90
+http://listen6.myradio24.com:9000/vitaminfm
+#EXTINF:-1,Витамин FM Танцевальный
+http://listen6.myradio24.com:9000/vitfmdance
+#EXTINF:-1,Пионер FM
+http://radio.dline-media.com/ppr128.mp3
+#EXTINF:-1,Радио Ваня
+http://icecast-radiovanya.cdnvideo.ru/radiovanya
+#EXTINF:-1,Маруся FM
+http://radio-holding.ru:9000/marusya_default
+#EXTINF:-1,Made In Russia - Dance Radio
+http://listen2.myradio24.com:9000/8382
+#EXTINF:-1,Рекорд Русский Микс
+http://air.radiorecord.ru:805/rus_128
+#EXTINF:-1,Пи FM
+http://cdn.pifm.ru/mp3
+#EXTINF:-1,Русское FM
+http://radio.russkoe.fm:8000/russkoefm_192_mp3
+#EXTINF:-1,Рекорд Русские хиты
+http://air.radiorecord.ru:805/russianhits_128
+#EXTINF:-1,Рекорд Русские золотые
+http://air.radiorecord.ru:805/russiangold_128
+#EXTINF:-1,Зайцев FM Русская музыка
+http://zaycevfm.cdnvideo.ru/ZaycevFM_rus_128.mp3
+#EXTINF:-1,Зайцев FM Поп
+http://zaycevfm.cdnvideo.ru/ZaycevFM_pop_128.mp3
+#EXTINF:-1,Русские песни
+http://listen.rusongs.ru/ru-mp3-128
+#EXTINF:-1,Танцы по русски
+http://dor2server.streamr.ru:8000/dorognoe1945.mp3
+#EXTINF:-1,ГОП FM
+http://air2.radiorecord.ru:805/gop_128
+#EXTINF:-1,Русское радио
+http://skyplus.babahhcdn.com:7004/RR
+#EXTINF:-1,Новое радио
+http://icecast.newradio.cdnvideo.ru/newradio3
+#EXTINF:-1,Европа Плюс
+http://ep128.hostingradio.ru:8030/ep128
+#EXTINF:-1,Милицейская Волна
+http://radio.mvd.ru:8000/mv128.mp3
+#EXTINF:-1,Радиола
+http://air2.radiorecord.ru:805/1970_128
+#EXTINF:-1,Нафталин FM
+http://air2.radiorecord.ru:805/naft_128
+#EXTINF:-1,Ретро СССР
+http://95.188.107.89:8008/stream2.mp3
+#EXTINF:-1,Эстрада 60-70
+http://95.188.107.89:8008/Estrada_60-70.mp3
+#EXTINF:-1,Ретро FM 70
+http://retro70.hostingradio.ru:8025/retro70-128.mp3
+#EXTINF:-1,Ретро FM 80
+http://retro80.hostingradio.ru:8025/retro80-128.mp3
+#EXTINF:-1,Ретро FM 90
+http://retro90.hostingradio.ru:8025/retro90-128.mp3
+#EXTINF:-1,Вечеринка Ретро FM
+http://stream1.hostingradio.ru:8010/20_mp3_128
+#EXTINF:-1,Рекорд 1970
+http://air2.radiorecord.ru:805/1970_128
+#EXTINF:-1,Рекорд 1980
+http://air2.radiorecord.ru:805/1980_128
+#EXTINF:-1,Русская волна
+http://radio.dline-media.com/ru-wave.mp3
+#EXTINF:-1,Супердискотека 90
+http://air2.radiorecord.ru:805/sd90_128
+#EXTINF:-1,Дискотека 90
+http://listen1.myradio24.com:9000/5967
+#EXTINF:-1,Пионер Dance
+http://radio.dline-media.com/ppr_90.mp3
+#EXTINF:-1,Радио Шансон
+http://chanson.hostingradio.ru:8041/chanson128.mp3
+#EXTINF:-1,Шансон без цензуры
+http://chanson.hostingradio.ru:8041/chanson-uncensored128.mp3
+#EXTINF:-1,Радио Кабриолет
+http://setmedia.ru:8000/high3
+#EXTINF:-1,Волшебный Шансон
+http://listen.myradio24.com:9000/8144
+#EXTINF:-1,Романтический шансон
+http://chanson.hostingradio.ru:8041/chanson-romantic128.mp3
+#EXTINF:-1,Зайцев FM Шансон
+http://zaycevfm.cdnvideo.ru/ZaycevFM_shanson_128.mp3
+#EXTINF:-1,Питер FM
+http://icecast-piterfm.cdnvideo.ru/piterfm
+#EXTINF:-1,Экспресс-Радио
+http://159.253.18.97:8000/128kbit.mp3
+#EXTINF:-1,Рекорд Рок
+http://air2.radiorecord.ru:805/rock_128
+#EXTINF:-1,Наше радио
+http://nashe.streamr.ru/nashe-128.mp3
+#EXTINF:-1,Радио ШОК
+http://spb.radioshock.ru/radioshock
+#EXTINF:-1,Зайцев FM Рок
+http://zaycevfm.cdnvideo.ru/ZaycevFM_rock_128.mp3
+#EXTINF:-1,Витамин FM Рэп
+http://listen6.myradio24.com:9000/vtfmrap
+#EXTINF:-1,Зайцев FM RnB
+http://zaycevfm.cdnvideo.ru/ZaycevFM_rnb_128.mp3
+#EXTINF:-1,Правильный рэп
+http://rpr-stream.pp.ua:8005/rpr
+#EXTINF:-1,HipHopBY
+http://online.hiphop.by:9000/8000
+#EXTINF:-1,Рекорд Рэп
+http://air.radiorecord.ru:805/rap_128
+#EXTINF:-1,Владимир Высоцкий
+http://95.188.107.89:8008/Vysotsky.mp3
+#EXTINF:-1,Виктор Цой
+http://music.myradio.ua/viktor-tsoy-i-gruppa-kino128.mp3
+#EXTINF:-1,Михаил Круг
+http://music.myradio.ua/mihail-krug128.mp3
+#EXTINF:-1,Рекорд Club
+http://air.radiorecord.ru:805/club_128
+#EXTINF:-1,Рекорд Eurodance
+http://air.radiorecord.ru:805/eurodance_128
+#EXTINF:-1,Рекорд Megamix
+http://air2.radiorecord.ru:805/mix_128
+#EXTINF:-1,Радиус FM
+http://live.radiusfm.by:8000/radius_main
+#EXTINF:-1,Радио OK
+http://radiook.nlink.ru:8000/OKradio128.mp3
+#EXTINF:-1,Радио BumbleBee
+http://live.bumblebeefm.ru:8000/radio
+#EXTINF:-1,Радио Премиум
+http://listen.rpfm.ru:9000/premium128
+#EXTINF:-1,Ребячья Республика
+http://live.radio7.su:9000/deti
+#EXTINF:-1,Зайцев FM Зайчата
+http://zaycevfm.cdnvideo.ru/ZaycevFM_zaychata_128.mp3
+#EXTINF:-1,Детство
+http://95.188.107.89:8008/Detstvo.mp3
+#EXTINF:-1,Kids Hits
+http://92.255.229.74:8888/;stream.nsv
+#EXTINF:-1,ТМ радио
+http://radio.tmstudia.ru:8001/live
+#EXTINF:-1,Enigmatic Station
+http://listen2.myradio24.com:9000/8226
+#EXTINF:-1,Радио Атмосфера
+http://185.53.169.128:8000/192
+#EXTINF:-1,Рекорд Chillout
+http://air.radiorecord.ru:805/chil_128
+#EXTINF:-1,Медляк FM
+http://air.radiorecord.ru:8102/mdl_128
+#EXTINF:-1,Спокойное радио
+http://listen1.myradio24.com:9000/6262
+#EXTINF:-1,Jazz FM
+http://live.btvradio.bg/jazz-fm-lounge.mp3
+#EXTINF:-1,Ocean Radio Chilled
+http://149.56.147.197:9083/stream
+#EXTINF:-1,Зайцев FM Relax
+http://zaycevfm.cdnvideo.ru/ZaycevFM_relax_128.mp3
+#EXTINF:-1,Гастарбайтер FM
+http://air.radiorecord.ru:805/gast_128
+#EXTINF:-1,Кавказ Радио
+http://radio.alania.net:8000/kvk
+#EXTINF:-1,Радио Искатель
+http://iskatel.hostingradio.ru:8015/iskatel-128.mp3
+#EXTINF:-1,Маяк
+http://icecast.vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps
+#EXTINF:-1,Аншлаг FM
+http://air.radiorecord.ru:805/ansh_128
+#EXTINF:-1,Радио Книга
+http://bookradio.hostingradio.ru:8069/fm
+#EXTINF:-1,Поэзия
+http://jfm1.hostingradio.ru:14536/pcstream.mp3
+#EXTINF:-1,Театр онлайн
+http://195.91.237.50:8000/ices128

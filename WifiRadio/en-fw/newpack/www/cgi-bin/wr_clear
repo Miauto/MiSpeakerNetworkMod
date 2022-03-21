@@ -1,0 +1,32 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+cp /dev/null /etc/wifiradio/wifiradio.su.m3u
+sleep 1
+
+uci set wifiradio.@setting[0].autoupdate=0
+uci set wifiradio.@subscribe[0].pop=0
+uci set wifiradio.@subscribe[0].retro=0
+uci set wifiradio.@subscribe[0].shanson=0
+uci set wifiradio.@subscribe[0].rock=0
+uci set wifiradio.@subscribe[0].rap=0
+uci set wifiradio.@subscribe[0].group=0
+uci set wifiradio.@subscribe[0].dance=0
+uci set wifiradio.@subscribe[0].kids=0
+uci set wifiradio.@subscribe[0].relax=0
+uci set wifiradio.@subscribe[0].vostok=0
+uci set wifiradio.@subscribe[0].other=0
+uci set wifiradio.@subscribe[0].aac=0
+uci commit wifiradio
+
+/www/cgi-bin/wr_split
+
+sleep 3
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>
+<script>
+window.location.replace('../play/');
+</script>
+<body>"

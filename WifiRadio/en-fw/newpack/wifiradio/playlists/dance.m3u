@@ -1,0 +1,14 @@
+#EXTINF:-1,Рекорд Club
+http://air.radiorecord.ru:805/club_128
+#EXTINF:-1,Рекорд Eurodance
+http://air.radiorecord.ru:805/eurodance_128
+#EXTINF:-1,Рекорд Megamix
+http://air2.radiorecord.ru:805/mix_128
+#EXTINF:-1,Радиус FM
+http://live.radiusfm.by:8000/radius_main
+#EXTINF:-1,Радио OK
+http://radiook.nlink.ru:8000/OKradio128.mp3
+#EXTINF:-1,Радио BumbleBee
+http://live.bumblebeefm.ru:8000/radio
+#EXTINF:-1,Радио Премиум
+http://listen.rpfm.ru:9000/premium128

@@ -1,0 +1,19 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<body>"
+
+loca=$(uci get wifiradio.@setting[0].version_loc)
+echo "Current version: $loca .Xiaomi Eng<br>"
+ser=$(uci get wifiradio.@setting[0].version_ser)
+echo "Server version: $ser .Xiaomi<br>"
+
+if [ $ser -gt $loca ]
+then
+echo "<br><a href='../cgi-bin/wr_fw' class='button'>Install update</a>"
+else
+echo "<br><a href='../cgi-bin/wr_fw' class='button'>Restore firmware</a>"
+fi

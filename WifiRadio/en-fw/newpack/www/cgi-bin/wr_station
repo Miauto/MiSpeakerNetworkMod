@@ -1,0 +1,86 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+name=`mpc current`
+name=$(echo -e `echo $name | sed 's/+/ /g;s/%/\\\\x/g;'`)
+name=${name//& /and }
+
+name=${name//'\u0430'/а}
+name=${name//'\u0431'/б}
+name=${name//'\u0432'/в}
+name=${name//'\u0433'/г}
+name=${name//'\u0435'/е}
+name=${name//'\u0434'/д}
+name=${name//'\u0433'/г}
+name=${name//'\u0451'/ё}
+name=${name//'\u0436'/ж}
+name=${name//'\u0437'/з}
+name=${name//'\u0438'/и}
+name=${name//'\u0439'/й}
+name=${name//'\u043a'/к}
+name=${name//'\u043b'/л}
+name=${name//'\u043c'/м}
+name=${name//'\u043d'/н}
+name=${name//'\u043e'/о}
+name=${name//'\u043f'/п}
+name=${name//'\u0440'/р}
+name=${name//'\u0441'/c}
+name=${name//'\u0442'/T}
+name=${name//'\u0443'/y}
+name=${name//'\u0444'/ɸ}
+name=${name//'\u0445'/x}
+name=${name//'\u0446'/u}
+name=${name//'\u0447'/h}
+name=${name//'\u0448'/w}
+name=${name//'\u0449'/щ}
+name=${name//'\u044a'/ъ}
+name=${name//'\u044b'/ы}
+name=${name//'\u044c'/ь}
+name=${name//'\u044d'/э}
+name=${name//'\u044e'/ю}
+name=${name//'\u044f'/я}
+
+name=${name//'\u0410'/А}
+name=${name//'\u0411'/Б}
+name=${name//'\u0412'/В}
+name=${name//'\u0413'/Г}
+name=${name//'\u0415'/Е}
+name=${name//'\u0414'/Д}
+name=${name//'\u0401'/Ё}
+name=${name//'\u0416'/Ж}
+name=${name//'\u0417'/З}
+name=${name//'\u0418'/И}
+name=${name//'\u0419'/Й}
+name=${name//'\u041a'/K}
+name=${name//'\u041b'/Л}
+name=${name//'\u041c'/М}
+name=${name//'\u041d'/Н}
+name=${name//'\u041e'/О}
+name=${name//'\u041f'/П}
+name=${name//'\u0420'/Р}
+name=${name//'\u0421'/С}
+name=${name//'\u0422'/T}
+name=${name//'\u0423'/Y}
+name=${name//'\u0424'/ɸ}
+name=${name//'\u0425'/X}
+name=${name//'\u0426'/U}
+name=${name//'\u0427'/h}
+name=${name//'\u0428'/W}
+name=${name//'\u0429'/Щ}
+name=${name//'\u042a'/Ъ}
+name=${name//'\u042b'/Ы}
+name=${name//'\u042c'/Ь}
+name=${name//'\u042d'/Э}
+name=${name//'\u042e'/Ю}
+name=${name//'\u042f'/Я}
+
+printf  "<cur>"
+printf  "$name" | cut -f1 -d"",""
+printf  "</cur>"
+
+namelogo=$(uci get wifiradio.@setting[0].station)
+printf "<logo>$namelogo</logo>"

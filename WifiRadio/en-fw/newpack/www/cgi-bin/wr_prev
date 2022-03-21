@@ -1,0 +1,13 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+/etc/wifiradio/prev-station.sh
+sleep 1
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<script>
+window.location.replace('../play/');
+</script>
+<body>"

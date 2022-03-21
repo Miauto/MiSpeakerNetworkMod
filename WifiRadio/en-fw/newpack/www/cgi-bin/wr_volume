@@ -1,0 +1,4 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+sound=$(uci get wifiradio.@setting[0].sound)
+amixer -c 0 -- sset $sound Playback Volume $QUERY_STRING%

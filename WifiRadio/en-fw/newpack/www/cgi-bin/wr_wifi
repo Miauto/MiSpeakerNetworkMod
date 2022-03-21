@@ -1,0 +1,70 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+sec=$(cat /data/wifi/wpa_supplicant.conf  | grep key_mgmt | sed -n '/.*=/s///p' | head -n1 | tail -n1)
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Radio</title>"
+echo '<form method="GET" action="../cgi-bin/wr_wifisave" name="wifisave" onsubmit="return submitit()">'
+echo "<table border='0' width='100%' style='font-family: Tahoma; font-size: 10pt'>"
+echo    "<tr>"
+echo    "       <td>Profile:</td>"
+echo    "       <td>"
+echo    "<select class='input' size=1 name='profile' id='profile' onChange='chProfile(document.getElementById(\"profile\").selectedIndex)'>"
+echo    "<option value=1>Profile 1</option>"
+num=$(cat /data/wifi/wpa_supplicant.conf | grep network= | wc -l)
+for i in $(seq 2 $num)
+do
+    echo "<option value=$i>Profile $i</option>"
+done
+let i=num+1
+echo "<option value=$i>Add new</option>"
+echo    "</select>"
+echo    "</td>"
+echo    "</tr>"
+
+echo	"<tr>"
+echo	"	<td>Current Wifi:</td>"
+echo	"	<td><input disabled class='input' type=text name='curwifi' style='background-color: #94ffa8' size=15 value='&#128246; "
+echo	`iw dev wlan0 info | grep ssid | sed -n '/.*ssid /s///p'`
+echo "'></td>"
+echo	"</tr>"
+
+echo	"<tr>"
+echo	"	<td>Network Name:</td>"
+echo	"	<td><input class='input' type=text name='ssid' id='ssid' size=15 value=\"$(cat /data/wifi/wpa_supplicant.conf  | grep ssid=\" | sed -e 's/.*"\(.*\)".*/\1/' | head -n1 | tail -n1)\"></td>"
+echo	"</tr>"
+
+echo	"<tr>"
+echo	"	<td>Password:</td>"
+echo	"	<td><input type='text' class='input' type=text name='pass' id='pass' size=15 value=\"$(cat /data/wifi/wpa_supplicant.conf  | grep psk=\" | sed -e 's/.*"\(.*\)".*/\1/' | head -n1 | tail -n1)\"></td>"
+echo	"</tr>"
+echo	"<tr>"
+echo	"	<td>Encryption:</td>"
+echo	"	<td><select class='input' size=1 name='type' id='type' value='WPA-PSK'>"
+echo "<option value='none' "
+if [ "$sec" = "none" ]
+then
+echo "selected"
+fi
+echo ">Open</option>"
+echo "<option value='WPA-PSK' "
+if [ "$sec" = "WPA-PSK" ]
+then
+echo "selected"
+fi
+echo ">WPA-PSK</option></select>"
+
+echo "</td>"
+echo	"</tr>"
+
+echo	"<tr>"
+echo	"	<td>Delete selected profile:</td>"
+echo	"	<td><input type=\"checkbox\" class=\"input\" name=\"del\" id=\"del\" value=\"1\"></td>"
+echo	"</tr>"
+
+
+
+echo "</table><br>"
+echo '<input class="button" type="submit" value="Change" name="commit">'
+echo '</form>'

@@ -1,0 +1,40 @@
+#EXTINF:-1,Витамин FM 90
+http://listen6.myradio24.com:9000/vitaminfm
+#EXTINF:-1,Витамин FM Танцевальный
+http://listen6.myradio24.com:9000/vitfmdance
+#EXTINF:-1,Пионер FM
+http://radio.dline-media.com/ppr128.mp3
+#EXTINF:-1,Радио Ваня
+http://icecast-radiovanya.cdnvideo.ru/radiovanya
+#EXTINF:-1,Маруся FM
+http://radio-holding.ru:9000/marusya_default
+#EXTINF:-1,Made In Russia - Dance Radio
+http://listen2.myradio24.com:9000/8382
+#EXTINF:-1,Рекорд Русский Микс
+http://air.radiorecord.ru:805/rus_128
+#EXTINF:-1,Пи FM
+http://cdn.pifm.ru/mp3
+#EXTINF:-1,Русское FM
+http://radio.russkoe.fm:8000/russkoefm_192_mp3
+#EXTINF:-1,Рекорд Русские хиты
+http://air.radiorecord.ru:805/russianhits_128
+#EXTINF:-1,Рекорд Русские золотые
+http://air.radiorecord.ru:805/russiangold_128
+#EXTINF:-1,Зайцев FM Русская музыка
+http://zaycevfm.cdnvideo.ru/ZaycevFM_rus_128.mp3
+#EXTINF:-1,Зайцев FM Поп
+http://zaycevfm.cdnvideo.ru/ZaycevFM_pop_128.mp3
+#EXTINF:-1,Русские песни
+http://listen.rusongs.ru/ru-mp3-128
+#EXTINF:-1,Танцы по русски
+http://dor2server.streamr.ru:8000/dorognoe1945.mp3
+#EXTINF:-1,ГОП FM
+http://air2.radiorecord.ru:805/gop_128
+#EXTINF:-1,Русское радио
+http://skyplus.babahhcdn.com:7004/RR
+#EXTINF:-1,Новое радио
+http://icecast.newradio.cdnvideo.ru/newradio3
+#EXTINF:-1,Европа Плюс
+http://ep128.hostingradio.ru:8030/ep128
+#EXTINF:-1,Милицейская Волна
+http://radio.mvd.ru:8000/mv128.mp3

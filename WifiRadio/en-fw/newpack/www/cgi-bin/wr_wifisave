@@ -1,0 +1,65 @@
+#!/bin/bash
+echo "Content-type: text/html; charset=utf-8"
+echo
+
+IFS="&"
+set -- $QUERY_STRING
+
+pr=$1
+wf=$2
+ps=$3
+tp=$4
+de=$5
+
+wifi=${wf//ssid=/}
+pass=${ps//pass=/}
+type=${tp//type=/}
+profile=${pr//profile=/}
+del=${de//del=/}
+
+w1=$(echo -e `echo $wifi | sed 's/+/ /g;s/%/\\\\x/g;'`)
+p1=$(echo -e `echo $pass | sed 's/+/ /g;s/%/\\\\x/g;'`)
+t=$(echo -e `echo $type | sed 's/+/ /g;s/%/\\\\x/g;'`)
+prof=$(echo -e `echo $profile | sed 's/+/ /g;s/%/\\\\x/g;'`)
+d=$(echo -e `echo $del | sed 's/+/ /g;s/%/\\\\x/g;'`)
+
+printf -v w "%q" "$w1"
+printf -v p "%q" "$p1"
+#printf -v t "%q" "$t1"
+#printf -v prof "%q" "$prof1"
+#printf -v d "%q" "$d1"
+
+profiles=$(cat /data/wifi/wpa_supplicant.conf | grep network= | wc -l)
+if (($prof>$profiles))
+then
+    # Add new
+    echo "" >> /data/wifi/wpa_supplicant.conf
+    echo "network={" >> /data/wifi/wpa_supplicant.conf
+    echo "  ssid=\"$w\"" >> /data/wifi/wpa_supplicant.conf
+    echo "  psk=\"$p\"" >> /data/wifi/wpa_supplicant.conf
+    echo "  scan_ssid=1" >> /data/wifi/wpa_supplicant.conf
+    echo "  key_mgmt=$t" >> /data/wifi/wpa_supplicant.conf
+    echo "}" >> /data/wifi/wpa_supplicant.conf
+else
+    if [ "$d" == "1" ]
+    then
+	# Delete
+	sed -i -n "1 !H;1 h; $ {;x;s/[[:space:]]*network={\n[[:space:]]*ssid=\"${w}\"[^}]*}//g;p}" /data/wifi/wpa_supplicant.conf
+    else
+	# Change
+	if [ "$prof" == 1 ]
+	then
+	    cat /data/wifi/wpa_supplicant.conf | sed -e "/  ssid=.*/{s//  ssid=\"$w\"/;:a" -e '$!N;$!ba' -e '}' | sed -e "/  psk=.*/{s//  psk=\"$p\"/;:a" -e '$!N;$!ba' -e '}' | sed -e "/  key_mgmt=.*/{s//  key_mgmt=$t/;:a" -e '$!N;$!ba' -e '}' > /data/wifi/supl.tmp
+	else
+	    cat /data/wifi/wpa_supplicant.conf | awk "/  ssid/{c++;if(c==$prof){sub(\"  ssid=.*\",\"  ssid=\\\"$w\\\"\");c=0}}1" | awk "/  psk/{c++;if(c==$prof){sub(\"  psk=.*\",\"  psk=\\\"$p\\\"\");c=0}}1" | awk "/  key_mgmt/{c++;if(c==$prof){sub(\"  key_mgmt=.*\",\"  key_mgmt=$t\");c=0}}1" > /data/wifi/supl.tmp    
+	fi
+	mv /data/wifi/supl.tmp /data/wifi/wpa_supplicant.conf
+    fi
+fi
+
+echo "
+<title>Wifi Радио</title>"
+echo "<script>
+window.location.replace('../play/settings.htm');
+</script>
+<body>"

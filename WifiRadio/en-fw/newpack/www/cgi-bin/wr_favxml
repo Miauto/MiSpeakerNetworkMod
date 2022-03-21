@@ -1,0 +1,12 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>"
+
+for variable in 00 01 02 03 04 05 06 07 08 09 10
+do
+fav=$(uci get wifiradio.@fav[0].$variable)
+echo "<$variable>$fav</$variable>"
+done

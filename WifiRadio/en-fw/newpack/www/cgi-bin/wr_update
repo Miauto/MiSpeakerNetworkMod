@@ -1,0 +1,22 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+server=$(uci get wifiradio.@setting[0].server)
+
+/etc/wifiradio/stop.sh
+
+curl -o "/etc/wifiradio/playlists/playlists.tar.gz" $server/download/playlists_ru.tar.gz
+tar -xzf "/etc/wifiradio/playlists/playlists.tar.gz" -C "/etc/wifiradio/playlists/"
+rm -r -f "/etc/wifiradio/playlists/playlists.tar.gz"
+/www/cgi-bin/wr_split
+
+/etc/wifiradio/play.sh
+
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<script>
+window.location.replace('../play/');
+</script>
+<body>"
+

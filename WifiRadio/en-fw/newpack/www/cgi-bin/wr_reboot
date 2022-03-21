@@ -1,0 +1,28 @@
+#!/bin/sh
+# ©2019 WifiRadio.su
+echo "Content-type: text/html; charset=utf-8"
+echo
+echo "
+<title>Wifi Радио</title>
+<meta http-equiv='refresh' content='65; url=../play/'>
+<body  text='#FFFFFF' bgcolor='#FFFFFF'>"
+echo "<br><center><img src='../play/img/logo.png'><br><br><font size='2' style='font-family: Tahoma' color='#378d87'>Rebooting...</font></center><br>"
+echo "<center><img src='../play/img/reboot.gif'></center><br><!--"
+
+server=$(uci get wifiradio.@setting[0].server)
+sound=$(uci get wifiradio.@setting[0].sound)
+tts=$(uci get wifiradio.@setting[0].tts)
+
+mpc stop
+mpc clear
+mpc repeat off
+
+mpc add "$server/tts.work/$tts.reboot.mp3"
+
+mpc play
+
+sleep 3
+
+echo "-->"
+
+reboot
