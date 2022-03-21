@@ -1,0 +1,102 @@
+#!/bin/sh /etc/rc.common
+START=13
+
+USE_PROCD=1
+
+start_service() {
+	if [ ! -d /data/wifi ]; then
+		echo Create /data/wifi folder ...
+		/bin/mkdir /data/wifi
+		/bin/chmod 777 /data/wifi
+	fi
+	if [ ! -d /data/bt ]; then
+		echo Create /data/bt folder ...
+		/bin/mkdir /data/bt
+		/bin/chmod 777 /data/bt
+	fi
+	if [ ! -f /data/wifi/nvram.txt ]; then
+		cp /etc/wifi/nvram.txt /data/wifi
+		cp /etc/wifi/config.txt /data/wifi
+	fi
+	if [ ! -f /data/bt/bt_config.xml ]; then
+		cp /etc/bt/bt_config.xml /data/bt
+	fi
+	if [ ! -f /data/bt/mibt_config.json ]; then
+		cp /etc/bt/mibt_config.json /data/bt
+	else
+		rm -rf /data/bt/mibt_config.json
+		cp /etc/bt/mibt_config.json /data/bt
+	fi
+	if ! grep -Fq macaddr /data/wifi/nvram.txt
+	then
+		cp /etc/wifi/nvram.txt /data/wifi/nvram.txt
+		cp /etc/wifi/config.txt /data/wifi/config.txt
+	fi
+	if ! grep -Fq bd_addr /data/bt/bt_config.xml
+	then
+		cp /etc/bt/bt_config.xml /data/bt/bt_config.xml
+	fi
+
+	mac_wifi=`efuse_tool -w -R | grep 'The Efuse Data are' | awk '{print $5}'`
+	str=`cat /data/wifi/nvram.txt |grep macaddr`
+	old=`echo ${str#*=}`
+	if [ "$mac_wifi" != "$old" ]; then
+		/bin/config_update.sh /data/wifi/nvram.txt macaddr=$mac_wifi
+	else
+		echo NOT need modify WiFi MAC.
+	fi
+
+	mac_bt=`efuse_tool -b -R | grep 'The Efuse Data are' | awk '{print $5}'`
+	str1=`cat /data/bt/bt_config.xml |grep bd_addr`
+	str2=`echo ${str1#*>}`
+	oldmac=`echo ${str2%:*}`
+	if [ "$mac_bt" != "$oldmac" ]; then
+		sed -i "s|<bd_addr>.*|<bd_addr>$mac_bt:</bd_addr>|" /data/bt/bt_config.xml
+	else
+		echo NOT need modify BT MAC.
+	fi
+
+CONFIGNAMETMP="mibt_config.json.tmp"
+SOUNDBOXNAME=`cat /etc/config/system | grep 'option hostname' | awk -F "'" '{print $2}'`
+BTCONFIGFILE="/data/bt/mibt_config.json"
+
+oldmac=`cat $BTCONFIGFILE|grep bd_addr | awk -F "[\"\"]" '{print $4}'`
+poststr=`echo ${mac_wifi} | awk -F "[\:]" '{print $5$6}'`
+oldname=`cat $BTCONFIGFILE|grep bd_name | awk -F "[\"\"]" '{print $4}'`
+sn=`getmac.sh sn`
+sn_poststr=${sn:$((${#sn}-4))}
+if [ "$sn_poststr" == "" ]; then
+  sn_poststr="0001"
+fi
+if [ "${mac_bt}" != "$oldmac" -o "$oldname" != "${SOUNDBOXNAME}-${sn_poststr}"  ]; then
+  cp -f $BTCONFIGFILE /tmp/${CONFIGNAMETMP}
+  sed -i "s|bd_addr.*|bd_addr\": \"${mac_bt}\",|" /tmp/${CONFIGNAMETMP}
+  if [ "$SOUNDBOXNAME" == "OpenWRT" ];  then
+    sed -i "s|bd_name.*|bd_name\": \"${SOUNDBOXNAME}-${sn_poststr}\",|"  /tmp/${CONFIGNAMETMP}
+#修复部分配置出错的设备
+    sed -i "s|bt_name.*|bd_name\": \"${SOUNDBOXNAME}-${sn_poststr}\",|"  /tmp/${CONFIGNAMETMP}
+  else
+    sed -i "s|bd_name.*|bd_name\": \"${SOUNDBOXNAME}\",|"  /tmp/${CONFIGNAMETMP}
+#修复部分配置出错的设备
+    sed -i "s|bt_name.*|bd_name\": \"${SOUNDBOXNAME}\",|"  /tmp/${CONFIGNAMETMP}
+  fi
+  cp -f /tmp/${CONFIGNAMETMP} $BTCONFIGFILE
+  echo "Modify BT MAC(JSON):${mac_bt}"
+  echo "Modify BT NAME(JSON):${SOUNDBOXNAME}-${sn_poststr}"
+  sync
+else
+  echo "NOT need modify BT MAC(JSON)."
+fi
+
+cp -f /etc/wifi/hostapd.conf /tmp/hostapd.conf
+oldssid=`cat /etc/wifi/hostapd.conf | grep ssid=`
+newssid="ssid=xiaomi-wifispeaker-v3_miap${sn_poststr}"
+if [ "$oldssid" != "$newssid" ]; then
+ cp -f /etc/wifi/hostapd.conf /tmp/hostapd.conf
+
+ sed -i "s|ssid.*|ssid=xiaomi-wifispeaker-v3_miap${sn_poststr}|"  /tmp/hostapd.conf
+ echo "Modify MIIO SSID"
+ sync
+fi
+
+}
