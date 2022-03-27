@@ -1,13 +1,13 @@
 # Xiaomi Speaker Network Up
 
-img
+![](img\MiSpeaker.png)
 
 Un derivé de wifiradio de andr68rus https://4pda.to/forum/index.php?showtopic=832136
 
 Le but est de rendre cette enceinte fonctionnel et stable avec les dernieres mises a jour le plus simple possible.
 
     - On met a jour l'enceinte en 1.19.112 => Procedure de mise a jour
-    - on execute un script
+    - on execute un script sh
 
 Basé sur le firmware 1.19.112
     
