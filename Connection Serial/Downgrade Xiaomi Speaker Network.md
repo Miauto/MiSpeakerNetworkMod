@@ -1,7 +1,8 @@
 # Préparation
-1) télécharger l'image 
-  [system-1.4.0.img.zip](../../raw/main/Firmware/system-1.4.0.img.zip)
-  [system-1.9.112.zip](../../raw/main/Firmware/system-1.9.112.zip)
+1) télécharger l'image
+
+ - [system-1.4.0.img.zip](../../raw/main/Firmware/system-1.4.0.img.zip)
+ - [system-1.9.112.zip](../../raw/main/Firmware/system-1.9.112.zip)
 
 2) Mettre le fichier IMG dans une clé usb au format fat32
 3) brancher / souder votre ftdi232 en 3v3 ou autre usb serial sur les pins comme sur la photo.
