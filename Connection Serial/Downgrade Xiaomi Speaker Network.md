@@ -1,5 +1,7 @@
 # Préparation
-1) télécharger l'image 1.4 [system-1.4.0.img.zip](../../raw/main/Firmware/system-1.4.0.img.zip)
+1) télécharger l'image 
+  1.4 [system-1.4.0.img.zip](../../raw/main/Firmware/system-1.4.0.img.zip)
+  1.9 [system-1.9.0.img.zip](../../raw/main/Firmware/system-1.9.0.img.zip)
 
 2) brancher / souder votre ftdi232 en 3v3 ou autre usb serial sur les pins comme sur la photo.
  * l'écart des pin n'est pas courant.
@@ -23,41 +25,46 @@ ls /dev/sd*
 ```
 La sortie de la commande doit contenir sda et sda1
 Si le périphérique n'apparaît pas, exécutez les commandes:
-
+```
 mknod /dev/sda b 8 0
 mknod /dev/sda1 b 8 1
-
+```
 
 3. Montez la clé USB:
-
+```
 mkdir /tmp/flash
 mount /dev/sda1 /tmp/flash
-
+```
 
 4. Ensuite, nous regardons la division à partir de laquelle le système est chargé, exécutons la commande:
-
+```
 ubootenv
+```
 
 Soit mmcblk0p7 ou mmcblk0p10 
 
 5. Faites une sauvegarde sur une clé USB ( */ dev / mmcblk0p7* - le nom de la section du paragraphe précédent):
-
+```
 dd if=/dev/mmcblk0p7 of=/tmp/flash/system.img
+```
 
 6. Ensuite, démontez la clé USB:
-
+```
 umount /dev/sda1
+```
 
 7. Maintenant, nous vérifions sur l'ordinateur le fichier system.img sur la clé USB (c'est notre sauvegarde).
 
 **La restauration à partir d'une sauvegarde est similaire à la création d'une sauvegarde, à l'exception du point 5:**
 
 5. Restauration du système à partir d'une sauvegarde: Prendre le fichier télécharger plus haut system.img
-
+```
 dd if=/tmp/flash/system.img of=/dev/mmcblk0p7
 
-Eteindre l’enceinte
+reboot
+```
 
-Installer l apk MI SPEAKER 1.3.2 pour reconfigurer le wifi.
+# Configuratio de l'enceinte
+Pour la 1.4 installer l apk MI SPEAKER 1.3.2 pour configurer le wifi.
 
-Voila de retour en 1.4.
+Pour la 1.9 installer l apk MI Home pour configurer le wifi.
