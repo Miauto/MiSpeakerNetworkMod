@@ -73,11 +73,12 @@ if [ "${mac_bt}" != "$oldmac" -o "$oldname" != "${SOUNDBOXNAME}-${sn_poststr}"  
   sed -i "s|bd_addr.*|bd_addr\": \"${mac_bt}\",|" /tmp/${CONFIGNAMETMP}
   if [ "$SOUNDBOXNAME" == "OpenWRT" ];  then
     sed -i "s|bd_name.*|bd_name\": \"${SOUNDBOXNAME}-${sn_poststr}\",|"  /tmp/${CONFIGNAMETMP}
-#修复部分配置出错的设备
+#Corriger certains appareils mal configurés
     sed -i "s|bt_name.*|bd_name\": \"${SOUNDBOXNAME}-${sn_poststr}\",|"  /tmp/${CONFIGNAMETMP}
   else
+# donne le nom sans le num de fin
     sed -i "s|bd_name.*|bd_name\": \"${SOUNDBOXNAME}\",|"  /tmp/${CONFIGNAMETMP}
-#修复部分配置出错的设备
+#Corriger certains appareils mal configurés
     sed -i "s|bt_name.*|bd_name\": \"${SOUNDBOXNAME}\",|"  /tmp/${CONFIGNAMETMP}
   fi
   cp -f /tmp/${CONFIGNAMETMP} $BTCONFIGFILE

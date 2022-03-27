@@ -7,6 +7,7 @@ USE_PROCD=1
 config_device_file() {
     mkdir -p /data/dlna/
     cp /usr/share/dlna/device.xml /data/dlna/
+# recupere le nom du device
     fname=`cat /data/bt/mibt_config.json | grep bd_name |awk -F "[\"\"]" '{print $4}'`
     [ "$fname" == "" ] && {
         fname="MiSpeaker-0001"
@@ -24,6 +25,7 @@ ota_updata_deicie() {
     [ "$fname" == "" ] && {
         fname="MiSpeaker-0001"
     }
+# ne change pas le uuid a chaque redemmarage
 #    udn=`matool_get_device_id`
 #    udn="uuid:$udn"
     [ "$oldname" != "<friendlyName>$fname</friendlyName>" ] && {

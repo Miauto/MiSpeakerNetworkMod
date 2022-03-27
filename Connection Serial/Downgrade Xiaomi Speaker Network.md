@@ -74,3 +74,13 @@ reboot
 Pour la 1.4 installer l apk MI SPEAKER 1.3.2 pour configurer le wifi.
 
 Pour la 1.9 installer l apk MI Home pour configurer le wifi.
+
+# Erreurs ou bétises
+
+- l'enceinte demarre mais rien ne se passe.
+  - J'avais fait une sauvegarde dans la memoire de l'enceinte et il n'yvais plus de place. supprimer le fichier img sauvegardé par erreur
+- attention a la lettre "l" à ne pas comfondre avec le chiffre "1".
+  - mmcblk0p7 avec la lettre "l"
+  - en fonction de la police utilisé, il peut il y avoir confusion.
+
+

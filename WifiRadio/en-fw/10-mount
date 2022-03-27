@@ -1,0 +1,79 @@
+#!/bin/sh
+
+#Copyright (C) 2009 OpenWrt.org (C) 2010 OpenWrt.org.cn
+
+blkdev=`dirname $DEVPATH`
+xtmp=`echo $DEVPATH | grep 'usb'`
+mountdir="/media/public/"
+
+probe_fs() {
+	[ -b $1 ] && {
+		type=`blkid -s TYPE $1 | cut -d "\"" -f2`
+		[ -z $type ] || echo $type
+	}
+}
+
+if [ "x$xtmp" != "x" ] ; then
+	device=`basename $DEVPATH`
+	blkdev=`dirname $DEVPATH`
+
+	case "$ACTION" in
+	add)
+
+		#skip any already mounted partition
+		grep -q "^/dev/$device" /proc/mounts && exit 0
+
+		probe_type=$(probe_fs /dev/$device)
+		case $probe_type in
+			"ntfs")
+				mnt_cmd="ntfs-3g -o nls=utf8,gid=65534,uid=65534"
+				;;
+			"exfat")
+				mnt_cmd="mount -t exfat -o noatime,umask=0000,dmask=0000,fmask=0000,errors=continue,gid=65534,uid=65534"
+				;;
+			"vfat")
+				mnt_cmd="mount -t vfat -o noatime,umask=0000,dmask=0000,fmask=0000,errors=continue,gid=65534,uid=65534"
+				;;
+			*)
+				;;
+		esac
+
+		if [ -n "$mnt_cmd" ]; then
+			# in case we ran out of pagecache and get mount stuck at "D" state
+			echo 3 > /proc/sys/vm/drop_caches
+			mkdir -p $mountdir
+			mkdir -p $mountdir/$device
+
+			$mnt_cmd /dev/$device $mountdir/$device
+			if [ "$?" = "0" ] ; then
+				dmesg  | tail -n 5 | grep $device | grep -q dirty
+				if [ "$?" = "0" ] ; then
+					#echo "/dev/$device" >> /tmp/.dirty_part
+					#mount -o remount,ro /extdisks/$device
+					logger -s -p 3 -t "Hotplug" "$device: Dirty $probe_type partition"
+				fi
+			else
+				logger -s -p 3 -t "Hotplug" "$device: Mount failed. Code=$?"
+			fi
+		else
+			logger -s -p 3 -t "Hotplug" "$device: Mount failed. Not support $probe_type"
+		fi
+		mpc -w update $device
+#		/usr/bin/mpc clear
+#		/usr/bin/mpc --wait add sda1
+#		/usr/bin/mpc play
+#		uci set wifiradio.@setting[0].usb="on"
+#		uci commit wifiradio
+
+	;;
+	remove)
+		mpc -w update $device
+		#umount is done after samba release the folder
+#		/usr/bin/mpc stop
+#		uci set wifiradio.@setting[0].usb="off"
+#		uci commit wifiradio
+	;;
+	esac
+
+fi
+

@@ -2,7 +2,11 @@
 
 FOLDER="./newpack/"
 IPK="./ipk/"
-CONFIG="./config/"
+CONFIG="./ipk/config/"
+ETC="./etc/"
+ETCCONFIG="./etc/config/"
+ETCINITD="./etc/init.d/"
+
 # OpenSSH
 opkg install "${IPK}"openssh-keygen_7.4p1-1_meson.ipk
 opkg install "${IPK}"openssh-server_7.4p1-1_meson.ipk
@@ -104,7 +108,7 @@ opkg install "${IPK}"luci_0.12\+git-16.038.38474-0d510b2-1_meson.ipk --nodeps
 # chmod -R 755 /etc/wifiradio/
 # /bin/cp -rf "${IPK}"www /
 # chmod -R 755 /www/cgi-bin/
-# /bin/cp -R "${IPK}"config /etc
+ /bin/cp -R etc/config /etc
 # /bin/cp "${IPK}"rc.local /etc/rc.local
 
 # RU Sound
@@ -132,3 +136,14 @@ chmod 755 /etc/hotplug.d/block/10-mount
 # /etc/init.d/syncthing stop
 # sed -i 's@\/Sync@\/media\/public/\Sync@' /etc/syncthing/config.xml
 # /etc/init.d/syncthing start
+
+
+# au cas le fichier config_done ne se créer pas
+echo "20 secondes"
+/bin/bind_device.sh
+
+# Correctif
+/bin/cp -f "${ETCINITD}"check_mac /etc/init.d/check_mac # fix : genere un nom correct sans le numero mac
+/bin/cp -f "${ETCINITD}"dlnainit /etc/init.d/dlnainit # fix : pas de new uuid à chaque reboot
+
+echo "~~~~~~DONE~~~~~~"
