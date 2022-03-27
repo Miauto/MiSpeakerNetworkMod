@@ -1,25 +1,30 @@
 # Préparation
 1) télécharger l'image 
-  1.4 [system-1.4.0.img.zip](../../raw/main/Firmware/system-1.4.0.img.zip)
-  1.9 [system-1.9.0.img.zip](../../raw/main/Firmware/system-1.9.0.img.zip)
+  [system-1.4.0.img.zip](../../raw/main/Firmware/system-1.4.0.img.zip)
+  [system-1.9.112.zip](../../raw/main/Firmware/system-1.9.112.zip)
 
-2) brancher / souder votre ftdi232 en 3v3 ou autre usb serial sur les pins comme sur la photo.
- * l'écart des pin n'est pas courant.
-![processed|533x400](./serial.jpeg) 
+2) Mettre le fichier IMG dans une clé usb au format fat32
+3) brancher / souder votre ftdi232 en 3v3 ou autre usb serial sur les pins comme sur la photo.
+![serial](./serial.png) 
 
-3) Avec Putty mettez vous en serial COM* (selon votre pc) vitesse 115200
+1) Avec Putty mettez vous en serial COM X (selon votre pc) vitesse 115200
 
-4) Allumer l'enceinte et regarder dans putty.
+2) Allumer l'enceinte et regarder la console dans putty.
 
 **Créer une sauvegarde.** (Toutes les procédures ci-dessous sont effectuées via le port console!)
-# Pour faire une sauvegarde de votre partition:
-1. Démarrez en modesécurité:
+
+# Sauvegarde de votre partition:
+1. Démarrez en mode sécurité
 Lorsque vous voyez au démarrage du système:
-<i>Appuyez sur la touche [f] et appuyez sur [ENTER] pour passer en mode sécurité intégrée
-Appuyez sur la [1], [2], [3] ou [4] et appuyez sur [Entrée] pour sélectionner le niveau de débogage</i>
+```
+Appuyez sur la touche [f] et appuyez sur [ENTER] pour passer en mode sécurité intégrée
+Appuyez sur la [1], [2], [3] ou [4] et appuyez sur [Entrée] pour sélectionner le niveau de débogage<
+```
 Appuyez sur f et entrez. Le système démarrera en mode sans échec.
-2. Insérez une clé USB formatée en fat32
-Après avoir inséré laclé USB,vérifiez si l'appareil est apparu:
+
+
+2. vérifiez si l'appareil est apparu:
+
 ```
 ls /dev/sd*
 ```
@@ -41,7 +46,7 @@ mount /dev/sda1 /tmp/flash
 ubootenv
 ```
 
-Soit mmcblk0p7 ou mmcblk0p10 
+*Soit mmcblk0p7 ou mmcblk0p10*
 
 5. Faites une sauvegarde sur une clé USB ( */ dev / mmcblk0p7* - le nom de la section du paragraphe précédent):
 ```
@@ -64,7 +69,7 @@ dd if=/tmp/flash/system.img of=/dev/mmcblk0p7
 reboot
 ```
 
-# Configuratio de l'enceinte
+# Configuration de l'enceinte
 Pour la 1.4 installer l apk MI SPEAKER 1.3.2 pour configurer le wifi.
 
 Pour la 1.9 installer l apk MI Home pour configurer le wifi.
