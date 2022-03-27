@@ -43,10 +43,10 @@ mv /tmp/shells /etc/shells
 # opkg install "${IPK}"mpd-full_0.19.21-2_meson.ipk --nodeps
 # opkg install "${IPK}"mpc_0.26-2_meson.ipk
  opkg install "${IPK}"libffmpeg-full_1.1.1-5_meson.ipk
-# /bin/cp -rf "${IPK}"mpd.conf /etc/mpd.conf
+# /bin/cp -rf "${CONFIG}"mpd.conf /etc/mpd.conf
 # mkdir /root/.mpd
 # touch /root/.mpd/database
-# /bin/cp -rf "${IPK}"asound.conf /etc/asound.conf
+# /bin/cp -rf "${CONFIG}"asound.conf /etc/asound.conf
 
 ## Triggerhappy
 ## surveille les périphériques de saisie connectés dans l’attente de certains appuis de touche ou autres évènements de saisie
@@ -88,7 +88,7 @@ mkdir /www
 opkg install "${IPK}"lighttpd_1.4.35-2_meson.ipk
 opkg install "${IPK}"lighttpd-mod-cgi_1.4.35-2_meson.ipk
 /bin/rm -fr /etc/lighttpd
-/bin/cp -R "${IPK}"lighttpd /etc/
+/bin/cp -R "${ETC}"lighttpd /etc/
 /etc/init.d/lighttpd enable
 /etc/init.d/lighttpd start
 
@@ -99,7 +99,7 @@ opkg install "${IPK}"libubus-lua_2014-09-17-4c4f35cf2230d70b9ddd87638ca911e8a563
 opkg install "${IPK}"luci-base_0.12\+git-16.038.38474-0d510b2-1_meson.ipk 
 opkg install "${IPK}"luci-mod-admin-full_0.12\+git-16.038.38474-0d510b2-1_meson.ipk 
 opkg install "${IPK}"luci-theme-bootstrap_0.12\+git-16.038.38474-0d510b2-1_meson.ipk
-# opkg install "${IPK}"luci-i18n-russian_0.12\+git-16.038.38474-0d510b2-1_meson.ipk
+opkg install "${IPK}"luci-i18n-french_0.12+git-16.011.54267-f402ed2-1_meson.ipk
 opkg install "${IPK}"luci-lib-nixio_0.12\+git-16.038.38474-0d510b2-1_meson.ipk 
 opkg install "${IPK}"luci_0.12\+git-16.038.38474-0d510b2-1_meson.ipk --nodeps
 
@@ -108,24 +108,24 @@ opkg install "${IPK}"luci_0.12\+git-16.038.38474-0d510b2-1_meson.ipk --nodeps
 # chmod -R 755 /etc/wifiradio/
 # /bin/cp -rf "${IPK}"www /
 # chmod -R 755 /www/cgi-bin/
- /bin/cp -R etc/config /etc
+ /bin/cp -R "${ETC}"config /etc
 # /bin/cp "${IPK}"rc.local /etc/rc.local
 
 # RU Sound
 # /bin/cp -rf "${IPK}"sound /usr/share/
 
 # ympd
-opkg install "${IPK}"ympd_2018-03-29_meson.ipk
-/etc/init.d/ympd enable
+#opkg install "${IPK}"ympd_2018-03-29_meson.ipk
+#/etc/init.d/ympd enable
 
 # mount usb flash into media sd* dir
-/bin/cp -R "${IPK}"10-mount /etc/hotplug.d/block/
+/bin/cp -R "${ETC}"10-mount /etc/hotplug.d/block/
 chmod 755 /etc/hotplug.d/block/10-mount
 
 # /bin/mv -f /usr/share/sound/no_channel.opus /usr/share/sound/no_channel_.opus
 
 # Allow samba operate with root files
-/bin/cp -f "${IPK}"smb.conf-template /etc/samba
+/bin/cp -f "${ETC}"smb.conf-template /etc/samba
 /etc/init.d/samba restart
 
 # syncthing
