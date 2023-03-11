@@ -11,6 +11,11 @@ Le but est de rendre cette enceinte fonctionnel et stable avec les dernieres mis
 
 Basé sur le firmware 1.19.112
 
+## Spec
+Amlogic AML8726-M3 - Legacy single-core ARM Cortex A9-based SoC with ARM Mali-400 GPU, released in 2012, with a 16-bit DRAM interface and manufactured on a 45 nm process.
+
+pas de source [ARMLOGIC](http://openlinux.amlogic.com/)
+
 ## Problemes
 
 - Plus de support donc plus de mise à jour.
