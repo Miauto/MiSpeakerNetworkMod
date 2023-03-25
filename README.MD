@@ -15,6 +15,7 @@ Basé sur le firmware 1.19.112
 Amlogic AML8726-M3 - Legacy single-core ARM Cortex A9-based SoC with ARM Mali-400 GPU, released in 2012, with a 16-bit DRAM interface and manufactured on a 45 nm process.
 
 pas de source [ARMLOGIC](http://openlinux.amlogic.com/)
+Archive [armlogic](https://web.archive.org/web/20180928230933/http://openlinux.amlogic.com:80/wiki/index.php/Arm/Buildroot/OpenWrt)
 
 ## Problemes
 
