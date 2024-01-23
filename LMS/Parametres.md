@@ -13,7 +13,7 @@
 | ----------------- | ----------- |
 | HTTP mode         | No length   |
 | Seek on resume    | No          |
-| Codecs            | pcm,flc,aif |
+| Codecs            | flc,aif |
 | Send ICY metadata | No          |
 |                   |
 
