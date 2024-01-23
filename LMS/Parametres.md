@@ -13,9 +13,9 @@
 | ----------------- | ----------- |
 | HTTP mode         | No length   |
 | Seek on resume    | No          |
-| Codecs            | flc,aif |
+| Codecs            | mp3         |
 | Send ICY metadata | No          |
-|                   |
+|transcode          | mp3
 
 
 
