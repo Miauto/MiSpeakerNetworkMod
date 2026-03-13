@@ -1,20 +1,23 @@
-📘 MiSpeakerNetworkMod
+# **📘 MiSpeakerNetworkMod**
 
 MiSpeakerNetworkMod transforme une enceinte Xiaomi basée sur un firmware OpenWrt modifié en un système audio multi‑sources, stable, modulaire et contrôlable via une WebUI, des boutons physiques ou des API externes. 
+
 Wifiradio a été partiellement installé au préalable.
 
-Le projet fournit :
-    un Audio Manager capable de basculer proprement entre plusieurs sources audio
+## Le projet fournit :
+
+    - un Audio Manager capable de basculer proprement entre plusieurs sources audio
     des services init.d pour Spotify, Bluetooth, Line‑In et DLNA
-    une WebUI simple pour contrôler l’enceinte
-    un binaire librespot ARMv7 pré‑compilé
-    une structure claire pour le développement et l’installation
+    - Une WebUI simple pour contrôler l’enceinte
+    - Un binaire librespot ARMv7 pré‑compilé
+    - Une structure claire pour le développement et l’installation
 
 Ce projet est spécifique à cette enceinte Xiaomi et n’est pas destiné à être universel.
 
-🧱 Environnement matériel
+## 🧱 Environnement matériel
 
 L’enceinte Xiaomi ciblée utilise :
+
     CPU : ARMv7 Cortex‑A9
     RAM : 256–512 MB
     Stockage : eMMC interne
@@ -25,13 +28,14 @@ L’enceinte Xiaomi ciblée utilise :
     Entrée Line‑In : capture + playback ALSA
     Boutons physiques : exposés via /dev/input/eventX
 
-⚠️ Contraintes importantes
+## ⚠️ Contraintes importantes
 
 Ce projet doit respecter plusieurs contraintes strictes liées à l’environnement Xiaomi :
 
-✔ 1. Binaire ARMv7 spécifique
+### ✔ 1. Binaire ARMv7 spécifique
 
 Le binaire librespot fourni est compilé pour :
+
     ARMv7
     glibc 2.19
     ALSA Xiaomi
@@ -40,15 +44,16 @@ Le binaire librespot fourni est compilé pour :
 
 Il ne fonctionnera pas sur d’autres appareils.
 
-✔ 2. Services gérés par procd (OpenWrt)
+### ✔ 2. Services gérés par procd (OpenWrt)
 
 Tous les services audio doivent être :
+
     dans /etc/init.d/
     compatibles /etc/rc.common
     déclarés avec USE_PROCD=1
     capables de respawn
 
-✔ 3. Une seule source audio active à la fois
+### ✔ 3. Une seule source audio active à la fois
 
 Le système audio Xiaomi ne supporte pas le mixage.
 Le Audio Manager garantit :
@@ -56,21 +61,24 @@ Code
 
 STOP all sources → START selected source
 
-✔ 4. Chemins stricts
+### ✔ 4. Chemins stricts
+
     Binaire librespot → /usr/local/bin/librespot
     Manager → /opt/audio-system/manager/
     WebUI → /opt/audio-system/webui/
     Boutons → /opt/audio-system/buttons/
 
-✔ 5. Pas de compilation sur l’enceinte
+### ✔ 5. Pas de compilation sur l’enceinte
 
 Le CPU et l’environnement ne permettent pas de compiler Rust ou librespot.
-Tous les binaires doivent être fournis pré‑compilés.
-📁 Structure du projet
-Code
 
-MiSpeakerNetworkMod/
-│
+Tous les binaires doivent être fournis pré‑compilés.
+
+
+## 📁 Structure du projet
+
+```
+Mi`SpeakerNetworkMod/
 ├── bin/
 │   └── librespot_armv7_xiaomi
 │
@@ -103,62 +111,69 @@ MiSpeakerNetworkMod/
 │   └── uninstall.sh
 │
 └── README.md
+```
 
-🎛️ Sources audio supportées
-Source	Service	Description
-Spotify	spotify	Spotify Connect via librespot ARMv7
-Bluetooth	bluetooth	A2DP via Broadcom BSA
-Line‑In	linein	Entrée jack analogique
-DLNA	dlnainit	Renderer DLNA Xiaomi
-🔧 Audio Manager
+## 🎛️ Sources audio supportées
+
+    Source	Service	Description
+    Spotify	spotify	Spotify Connect via librespot ARMv7
+    Bluetooth	bluetooth	A2DP via Broadcom BSA
+    Line‑In	linein	Entrée jack analogique
+    DLNA	dlnainit	Renderer DLNA Xiaomi
+
+## 🔧 Audio Manager
 
 Le cœur du système :
-/opt/audio-system/manager/audio_manager.sh
 
-Fonctions :
+    /opt/audio-system/manager/audio_manager.sh
+
+### Fonctions :
+
     stoppe toutes les sources
     démarre la source demandée
     met à jour state.json
     utilisé par la WebUI, les boutons, Home Assistant
 
-Exemple :
-Code
+### Exemple :
 
-audio_manager.sh spotify
-audio_manager.sh bluetooth
-audio_manager.sh linein
-audio_manager.sh dlnainit
+    audio_manager.sh spotify
+    audio_manager.sh bluetooth
+    audio_manager.sh linein
+    audio_manager.sh dlnainit
 
-🌐 WebUI
+## 🌐 WebUI
 
-Accessible via :
-Code
+### Accessible via :
 
-http://IP_DE_L_ENCEINTE:8080
+--
 
-Fonctions :
+### Fonctions :
+
     sélection de la source
     affichage de la source active
     API REST simple
 
-🔘 Boutons physiques
+## 🔘 Boutons physiques
 
 Les boutons de l’enceinte sont lus via /dev/input/eventX.
+
 Un daemon Python permet de :
+    
     changer de source
     contrôler la lecture
     ajouter des actions personnaliséesS
 
-📦 Installation
+## 📦 Installation
 
 Un script install.sh copie automatiquement :
+
     les services init.d
     le manager
     la WebUI
     les binaires
     les permissions
 
-🧭 Roadmap
+## 🧭 Roadmap
 
     [ ] Amélioration WebUI (volume, état BT/DLNA)
     [ ] Intégration Home Assistant
@@ -166,11 +181,11 @@ Un script install.sh copie automatiquement :
     [ ] Logs unifiés
     [ ] Mode “auto‑switch” (détection automatique de source active)
 
-📝 Licence
+## 📝 Licence
 
 MIT
 
-🎤 Notes finales
+## 🎤 Notes finales
 
 Ce projet est spécifique à une enceinte Xiaomi et repose sur :
 
