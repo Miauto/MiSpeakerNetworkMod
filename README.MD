@@ -28,6 +28,7 @@ L’enceinte Xiaomi ciblée utilise :
 ⚠️ Contraintes importantes
 
 Ce projet doit respecter plusieurs contraintes strictes liées à l’environnement Xiaomi :
+
 ✔ 1. Binaire ARMv7 spécifique
 
 Le binaire librespot fourni est compilé pour :
@@ -38,6 +39,7 @@ Le binaire librespot fourni est compilé pour :
     toolchain custom
 
 Il ne fonctionnera pas sur d’autres appareils.
+
 ✔ 2. Services gérés par procd (OpenWrt)
 
 Tous les services audio doivent être :
@@ -145,7 +147,7 @@ Les boutons de l’enceinte sont lus via /dev/input/eventX.
 Un daemon Python permet de :
     changer de source
     contrôler la lecture
-    ajouter des actions personnalisées
+    ajouter des actions personnaliséesS
 
 📦 Installation
 
