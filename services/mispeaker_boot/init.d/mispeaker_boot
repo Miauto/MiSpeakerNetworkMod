@@ -1,0 +1,19 @@
+#!/bin/sh /etc/rc.common
+
+START=10
+USE_PROCD=1
+
+start_service() {
+    # Stop all audio services
+    /etc/init.d/spotify stop
+    /etc/init.d/bluetooth stop
+    /etc/init.d/linein stop
+    /etc/init.d/dlnainit stop
+
+    # Start idle services
+    /etc/init.d/spotify start
+    /etc/init.d/bluetooth start
+
+    # Reset state.json
+    echo '{"source": "none"}' > /opt/audio-system/manager/state.json
+}

@@ -1,0 +1,22 @@
+#!/bin/sh /etc/rc.common
+
+START=96
+USE_PROCD=1
+
+APP_DIR="/opt/audio-system/webui"
+PYTHON_BIN="/usr/bin/python3"
+
+start_service() {
+    [ -x "$PYTHON_BIN" ] || return 1
+    [ -f "$APP_DIR/app.py" ] || return 1
+
+    procd_open_instance
+    procd_set_param command "$PYTHON_BIN" "$APP_DIR/app.py"
+    procd_set_param respawn
+    procd_append_param respawn 3600 5 5
+    procd_close_instance
+}
+
+stop_service() {
+    killall -9 python3 2>/dev/null
+}
