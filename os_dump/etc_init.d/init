@@ -1,0 +1,131 @@
+#!/bin/sh /etc/rc.common
+START=11
+STOP=91
+
+USE_PROCD=1
+
+MNT_DIR=/data/mnt
+
+
+check_broadinfo() {
+	if [ -f /usr/share/mico/s6didbase.tar.gz ]; then
+		did=`efuse_secukey_tool -J -R | awk -F "|" '{print $2}'`
+		if [ "x$did" == "x" ]; then
+			tar -zxf /usr/share/mico/s6didbase.tar.gz -C /tmp
+			mac=`efuse_tool -w -R | grep 'The Efuse Data are' | awk '{print $5}' | sed 's/://g' | tr a-z A-Z`
+			get=`cat /tmp/s6didbase.txt | grep $mac | awk -F "|" '{print $1}'`
+			if [ "x$mac" == "x$get" ]; then
+				didkey=`cat /tmp/s6didbase.txt | grep $get`
+				efuse_secukey_tool -J -W "$didkey"
+				rm -f /data/etc/binfo
+				sync
+				rm /tmp/s6didbase.txt
+			fi
+		fi
+	fi
+}
+
+sync_broadinfo() {
+	mkdir -p /data/etc/
+	if [ ! -f /data/etc/binfo ]; then
+		sn=`efuse_secukey_tool -S -R | grep 'The Efuse Data are' | awk '{print $5}'`
+		mac_wifi=`efuse_tool -w -R | grep 'The Efuse Data are' | awk '{print $5}'`
+		mac_bt=`efuse_tool -b -R | grep 'The Efuse Data are' | awk '{print $5}'`
+		miio_did=`efuse_secukey_tool -J -R | awk -F "|" '{print $2}'`
+		miio_key=`efuse_secukey_tool -J -R | awk -F "|" '{print $3}'`
+		echo 'config binfo "binfo"' > /data/etc/binfo
+		uci -c /data/etc -q batch <<EOF
+		set binfo.binfo.sn=$sn
+		set binfo.binfo.mac_wifi=$mac_wifi
+		set binfo.binfo.mac_bt=$mac_bt
+		set binfo.binfo.miio_did=$miio_did
+		set binfo.binfo.miio_key=$miio_key
+		commit binfo
+EOF
+	fi
+}
+
+start_service() {
+	if [ ! -d $ROOT_DIR ]; then
+		/bin/mkdir $ROOT_DIR
+	fi
+	echo 0 > /proc/sys/vm/mem_management_thresh
+	if [ "x`cat /proc/partitions | grep mtdblock`" = "x" ]; then
+		rmall=0
+		if [ ! -f /dev/mmcblk0p11 ]; then
+			/bin/mknod /dev/mmcblk0p11 b 179 11
+		fi
+		if [ ! -d /data ]; then
+			mkdir /data
+		fi
+		/usr/sbin/e2fsck -y -f /dev/mmcblk0p11
+		/bin/mount -o nodelalloc -t ext4 /dev/mmcblk0p11 /data/
+		if [ -f /data/reset ]; then
+			if [ -f /data/reset_all ]; then
+				rmall=1
+			fi
+			rm /data/reset
+			/bin/umount /data
+			/usr/sbin/mkfs.ext4 -t ext4 -c /dev/mmcblk0p11 -q
+			/bin/mount -o nodelalloc -t ext4 /dev/mmcblk0p11 /data/
+		fi
+	
+		#U-disk mount depend on this director. During initial stage, do this ASAP	
+		if [ ! -d $MNT_DIR  ]; then
+			/bin/mkdir -p $MNT_DIR
+		fi
+
+		#Test for first boot to factory mode
+		efuse_secukey_tool -S -R
+		[ $? == "0" ] && {
+			efuse_secukey_tool -F -R
+			[ $? != "0" ] && efuse_secukey_tool -F -W 1
+		}
+		efuse_secukey_tool -F -R
+		[ $? != "0" ] && touch /data/etc/factory
+
+		if [ ! -f /dev/mmcblk0p12 ]; then
+			/bin/mknod /dev/mmcblk0p12 b 179 12
+		fi
+		if [ ! -d /media ]; then
+			mkdir /media
+		fi
+		/usr/sbin/e2fsck -y -f /dev/mmcblk0p12
+
+		if [ ! -d /media ]; then
+			/bin/mkdir /media
+			/bin/chmod 777 /media
+		fi
+		if [ -f /data/reset_all ] || [ $rmall -eq 1 ]; then
+		    rm /data/reset_all
+			/usr/sbin/mkfs.ext4 -t ext4 -c /dev/mmcblk0p12 -q
+		fi
+		/bin/mount -o nodelalloc -t ext4 /dev/mmcblk0p12 /media/
+		if [ ! -d /media/public ]; then
+		    /bin/mkdir -p /media/public
+			/bin/chmod 777 /media/public -R
+		fi
+	fi
+
+	check_broadinfo
+	sync_broadinfo
+
+	#enable PA
+	[ ! -d /sys/class/gpio/gpio34 ] && echo 34 > /sys/class/gpio/export
+	echo high > /sys/class/gpio/gpio34/direction
+
+	[ ! -d /sys/class/gpio/gpio52 ] && echo 52 > /sys/class/gpio/export
+	echo high > /sys/class/gpio/gpio52/direction
+
+	i2cset -y 1 0x4c 0 0
+	i2cset -y 1 0x4c 2 0x11
+	i2cset -y 1 0x4c 1 0x11
+
+	#i2cset -y 1 0x4c 0 0
+	#i2cset -y 1 0x4c 0x3d 0x30
+	#i2cset -y 1 0x4c 0x3e 0x30
+
+	#enable mic
+	amixer cset iface=MIXER,name='Left LINEIN Select' 0
+	amixer cset iface=MIXER,name='Right LINEIN Select' 0
+}

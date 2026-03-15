@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f4f4f4;
+    padding-top: 40px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.status {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.buttons button {
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #0078ff;
+    color: white;
+}
+
+.buttons button:hover {
+    background: #005fcc;
+}
+
+.autoswitch {
+    margin-top: 30px;
+    font-size: 16px;
+}

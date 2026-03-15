@@ -1,0 +1,29 @@
+#!/bin/sh /etc/rc.common
+
+START=85
+USE_PROCD=1
+EXTRA_COMMANDS="mic_on mic_off"
+
+start_service() {
+    procd_open_instance
+    procd_set_param command /usr/bin/mipns-s6
+    procd_set_param nice
+    procd_append_param nice -10
+    procd_set_param respawn
+    procd_append_param respawn 3600
+    procd_append_param respawn 5
+    procd_append_param respawn 5
+    procd_set_param stdout 0
+    procd_set_param stderr 0
+    procd_close_instance
+}
+
+mic_on() {
+    echo "on" > /tmp/mipns/mic
+    kill -s SIGHUP $(pidof mipns-s6)    
+}
+
+mic_off() {
+    echo "off" > /tmp/mipns/mic    
+    kill -s SIGHUP $(pidof mipns-s6)
+}

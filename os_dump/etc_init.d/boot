@@ -1,0 +1,79 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006-2011 OpenWrt.org
+
+START=10
+STOP=98
+
+uci_apply_defaults() {
+	. /lib/functions/system.sh
+
+	cd /etc/uci-defaults || return 0
+	files="$(ls)"
+	[ -z "$files" ] && return 0
+	mkdir -p /tmp/.uci
+	for file in $files; do
+		( . "./$(basename $file)" ) && rm -f "$file"
+	done
+	uci commit
+}
+
+boot() {
+	[ -f /proc/mounts ] || /sbin/mount_root
+	[ -f /proc/jffs2_bbc ] && echo "S" > /proc/jffs2_bbc
+	[ -f /proc/net/vlan/config ] && vconfig set_name_type DEV_PLUS_VID_NO_PAD
+	
+	cat /sys/class/gpio_keypad/status > /tmp/.bootkeystate
+	mkdir -p /var/run
+	mkdir -p /var/log
+	mkdir -p /var/lock
+	mkdir -p /var/state
+	mkdir -p /tmp/.uci
+	chmod 0700 /tmp/.uci
+	touch /var/log/wtmp
+	touch /var/log/lastlog
+	touch /tmp/resolv.conf.auto
+	ln -sf /tmp/resolv.conf.auto /tmp/resolv.conf
+	grep -q debugfs /proc/filesystems && /bin/mount -o noatime -t debugfs debugfs /sys/kernel/debug
+	[ "$FAILSAFE" = "true" ] && touch /tmp/.failsafe
+
+	if [ "x`cat /proc/partitions | grep mtdblock`" = "x" ]; then
+		if [ ! -f /dev/mmcblk0p11 ]; then
+                	/bin/mknod /dev/mmcblk0p11 b 179 11
+            	fi
+            	if [ ! -f /dev/mmcblk0p12 ]; then
+                	/bin/mknod /dev/mmcblk0p12 b 179 12
+            	fi
+            	if [ ! -f /dev/mmcblk0p3 ]; then
+                	/bin/mknod /dev/mmcblk0p3 b 179 3
+            	fi
+		if [ "x`/usr/sbin/blkid /dev/mmcblk0p3 | grep ext4`" = "x" ]; then
+			/usr/sbin/mkfs.ext4 -q /dev/mmcblk0p3
+		fi
+		if [ "x`/usr/sbin/blkid /dev/mmcblk0p11 | grep ext4`" = "x" ]; then
+			/usr/sbin/mkfs.ext4 -q /dev/mmcblk0p11
+		fi
+		if [ "x`/usr/sbin/blkid /dev/mmcblk0p12 | grep ext4`" = "x" ]; then
+			/usr/sbin/mkfs.ext4 -q /dev/mmcblk0p12
+		fi
+	fi
+
+	/sbin/kmodloader
+
+	# allow wifi modules time to settle
+	sleep 1
+
+	# temporary hack until configd exists
+	/sbin/reload_config
+
+	# create /dev/root if it doesn't exist
+	[ -e /dev/root -o -h /dev/root ] || {
+		rootdev=$(awk 'BEGIN { RS=" "; FS="="; } $1 == "root" { print $2 }' < /proc/cmdline)
+		[ -n "$rootdev" ] && ln -s "$rootdev" /dev/root
+	}
+    # Set USB host mode
+	echo 136 > /sys/class/gpio/export
+	echo high > /sys/class/gpio/gpio136/direction
+}
+
+shutdown() {
+}

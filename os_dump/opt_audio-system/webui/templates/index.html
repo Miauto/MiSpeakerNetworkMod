@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MiSpeaker Control</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>MiSpeaker Control</h1>
+
+<div class="status">
+    Source active : <span id="current">{{ state.source }}</span>
+</div>
+
+<div class="buttons">
+    <button onclick="setSource('spotify')">Spotify</button>
+    <button onclick="setSource('bluetooth')">Bluetooth</button>
+    <button onclick="setSource('linein')">Line-In</button>
+    <button onclick="setSource('dlnainit')">DLNA</button>
+</div>
+
+<div class="autoswitch">
+    <label>
+        <input type="checkbox" id="autoSwitch" {% if auto_switch %}checked{% endif %} onchange="toggleAutoSwitch()">
+        Auto-switch (dernier qui parle)
+    </label>
+</div>
+
+<script>
+function setSource(src) {
+    fetch("/api/source/" + src, { method: "POST" })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "ok") {
+                document.getElementById("current").innerText = data.source;
+            }
+        });
+}
+
+function toggleAutoSwitch() {
+    const enabled = document.getElementById("autoSwitch").checked;
+    fetch("/api/auto_switch", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({enable: enabled})
+    });
+}
+</script>
+
+</body>
+</html>

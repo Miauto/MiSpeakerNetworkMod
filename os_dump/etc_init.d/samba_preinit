@@ -1,0 +1,12 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2008-2012 OpenWrt.org
+
+START=02
+USE_PROCD=1
+
+#restore samba's default uci config to give samba a fresh start
+
+start_service() {
+	cp -f /etc/samba.config.default /etc/config/samba
+	return 0
+}

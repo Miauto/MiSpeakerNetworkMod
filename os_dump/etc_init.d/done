@@ -1,0 +1,34 @@
+#!/bin/sh /etc/rc.common
+# Copyright (C) 2006 OpenWrt.org
+
+START=95
+boot() {
+	[ -d /tmp/root ] && mount_root done
+
+	# process user commands
+	[ -f /etc/rc.local ] && {
+		sh /etc/rc.local
+	}
+
+	set_state done
+
+	sleep 1
+	mediaconfig="/data/.mediaplayerconfig/mediaplayer.cfg"
+	media_volume=100
+	if [ -f $mediaconfig ]; then
+		config_volume=$(grep "volume" $mediaconfig | cut -f2 -d'"')
+		echo "config_volume:"$config_volume
+		if [ -n "$config_volume" ] && [ "$config_volume" -ge "0" ] && [ "$config_volume" -le "255" ]; then
+			media_volume=$config_volume
+		else
+			echo "wrong config_volume:"$config_volume
+		fi
+	fi
+	amixer sset mysoftvol $media_volume
+	ubus -t 10 wait_for mediaplayer
+	if [ ! -f "/data/status/config_done" ]; then
+		/bin/notify.sh welcome
+	else
+		aplay /usr/share/sound/bootup.wav
+	fi
+}

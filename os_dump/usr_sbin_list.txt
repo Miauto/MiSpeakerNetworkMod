@@ -1,0 +1,67 @@
+-rwxr-xr-x    1 root     root         72840 Dec 23  2019 alsactl
+lrwxrwxrwx    1 root     root            17 Dec 23  2019 arping -> ../../bin/busybox
+-rwxr-xr-x    1 root     root         85508 Dec 23  2019 avahi-daemon
+-rwxr-xr-x    1 root     root         49332 Dec 23  2019 blkid
+lrwxrwxrwx    1 root     root            17 Dec 23  2019 brctl -> ../../bin/busybox
+-rwxr-xr-x    1 root     root         57168 Dec 23  2019 cfdisk
+lrwxrwxrwx    1 root     root            17 Dec 23  2019 chroot -> ../../bin/busybox
+-rwxr-xr-x    1 root     root          3454 Dec 23  2019 collect_log.sh
+lrwxrwxrwx    1 root     root            17 Dec 23  2019 crond -> ../../bin/busybox
+-rwxr-xr-x    1 root     root        298804 Dec 23  2019 dbus-daemon
+-rwxr-xr-x    1 root     root       1280632 Dec 23  2019 dhcpd
+-rwxr-xr-x    1 root     root        161340 Dec 23  2019 dnsmasq
+-rwxr-xr-x    1 root     root        150108 Dec 23  2019 dropbear
+-rwxr-xr-x    1 root     root        220444 Dec 23  2019 e2fsck
+-rwxr-xr-x    1 root     root           937 Dec 23  2019 easy_logcut
+-rwxr-xr-x    1 root     root        163160 Dec 23  2019 fdisk
+-rwxr-xr-x    1 root     root         22940 Dec 23  2019 flash_erase
+-rwxr-xr-x    1 root     root        438380 Dec 23  2019 hostapd
+-rwxr-xr-x    1 root     root         12164 Dec 23  2019 htpdate
+-rwxr-xr-x    1 root     root         11828 Dec 23  2019 i2cdetect
+-rwxr-xr-x    1 root     root         14132 Dec 23  2019 i2cdump
+-rwxr-xr-x    1 root     root         11336 Dec 23  2019 i2cget
+-rwxr-xr-x    1 root     root         13428 Dec 23  2019 i2cset
+lrwxrwxrwx    1 root     root            16 Dec 23  2019 insmod -> /sbin/kmodloader
+-rwxr-xr-x    1 root     root         92188 Dec 23  2019 iw
+-rwxr-xr-x    1 root     root        142660 Jan 14  2020 lighttpd
+lrwxrwxrwx    1 root     root            16 Dec 23  2019 lsmod -> /sbin/kmodloader
+-rwxr-xr-x    1 root     root         89848 Dec 23  2019 mke2fs
+lrwxrwxrwx    1 root     root             6 Dec 23  2019 mkfs.ext2 -> mke2fs
+lrwxrwxrwx    1 root     root             6 Dec 23  2019 mkfs.ext3 -> mke2fs
+lrwxrwxrwx    1 root     root             6 Dec 23  2019 mkfs.ext4 -> mke2fs
+lrwxrwxrwx    1 root     root            16 Dec 23  2019 modinfo -> /sbin/kmodloader
+lrwxrwxrwx    1 root     root            16 Dec 23  2019 modprobe -> /sbin/kmodloader
+-rwxr-xr-x    1 root     root         24192 Dec 23  2019 nanddump
+-rwxr-xr-x    1 root     root         26388 Dec 23  2019 nandwrite
+-rwxr-xr-x    1 root     root          1227 Dec 23  2019 network_probe.sh
+lrwxrwxrwx    1 root     root            15 Dec 23  2019 nmbd -> samba_multicall
+lrwxrwxrwx    1 root     root            17 Dec 23  2019 ntpd -> ../../bin/busybox
+-rwxr-xr-x    1 root     root         33516 Dec 23  2019 odhcp6c
+-rwxr-xr-x    1 root     root        159380 Dec 23  2019 pdnsd
+lrwxrwxrwx    1 root     root            16 Dec 23  2019 rmmod -> /sbin/kmodloader
+-rwxr-xr-x    1 root     root       1428800 Dec 23  2019 samba_multicall
+lrwxrwxrwx    1 root     root            15 Dec 23  2019 smbd -> samba_multicall
+lrwxrwxrwx    1 root     root            15 Dec 23  2019 smbpasswd -> samba_multicall
+-rwxr-xr-x    1 root     root        608660 Oct 17  2019 sshd
+-rwxrwxr-x    1 root     root           147 Dec 23  2019 statpoints_clear.sh
+-rwxr-xr-x    1 root     root          3318 Dec 23  2019 supervisord
+-rwxr-xr-x    1 root     root           658 Dec 23  2019 switch_channel
+-rwxr-xr-x    1 root     root        196892 Dec 23  2019 syslog-ng
+-rwxr-xr-x    1 root     root          2554 Dec 23  2019 syslog_rotate
+-rwxr-xr-x    1 root     root           843 Dec 23  2019 syslog_sync.sh
+lrwxrwxrwx    1 root     root            17 Dec 23  2019 telnetd -> ../../bin/busybox
+-rwxr-xr-x    1 root     root         16624 Dec 23  2019 ubiattach
+-rwxr-xr-x    1 root     root         12276 Dec 23  2019 ubiblock
+-rwxr-xr-x    1 root     root          6392 Dec 23  2019 ubicrc32
+-rwxr-xr-x    1 root     root         13636 Dec 23  2019 ubidetach
+-rwxr-xr-x    1 root     root         44480 Dec 23  2019 ubiformat
+-rwxr-xr-x    1 root     root         18500 Dec 23  2019 ubimkvol
+-rwxr-xr-x    1 root     root         20584 Dec 23  2019 ubinfo
+-rwxr-xr-x    1 root     root         27512 Dec 23  2019 ubinize
+-rwxr-xr-x    1 root     root         14528 Dec 23  2019 ubirename
+-rwxr-xr-x    1 root     root         15716 Dec 23  2019 ubirmvol
+-rwxr-xr-x    1 root     root         17108 Dec 23  2019 ubirsvol
+-rwxr-xr-x    1 root     root         16400 Dec 23  2019 ubiupdatevol
+-rwxr-xr-x    1 root     root         18604 Dec 23  2019 uuidd
+-rwxr-xr-x    1 root     root         58316 Dec 23  2019 wpa_cli
+-rwxr-xr-x    1 root     root        447472 Dec 23  2019 wpa_supplicant

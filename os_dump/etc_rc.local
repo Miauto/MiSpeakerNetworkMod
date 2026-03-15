@@ -1,0 +1,7 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+if [ "$(/bin/mount | grep 'ro,noatime,errors=remount-ro' | wc -l)" = "1" ]; then
+    /sbin/reboot
+fi
+
+exit 0
