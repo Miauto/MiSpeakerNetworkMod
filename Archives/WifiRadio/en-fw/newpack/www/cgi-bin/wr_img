@@ -1,9 +1,0 @@
-#!/bin/sh
-# ©2019 WifiRadio.su
-echo "Content-type: text/html; charset=utf-8"
-echo
-echo "
-<title>Wifi Радио</title>"
-server=$(uci get wifiradio.@setting[0].server)
-name=$(uci get wifiradio.@setting[0].station)
-echo "<img src='$server/radio_logo/$name.png' width='280'>"
